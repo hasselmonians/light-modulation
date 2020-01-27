@@ -10,9 +10,6 @@ function data_table = getSpikeSpace(root)
   y = root.sy;
   spike_times = CMBHOME.Utils.ContinuizeEpochs(root.cel_ts);
 
-  % reconstruct a binary spike train
-  spike_train = false(length(t), 1);
-
   % which timestamp indices correspond to the spike times?
   [~, ~, bindices] = histcounts(spike_times, t);
 
