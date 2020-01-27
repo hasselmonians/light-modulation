@@ -1,8 +1,8 @@
 function data_table = getSpikeSpace(root)
 
   % accepts a CMBHOME.Session object (with root.cel defined)
-  % and returns an n x 3 matrix
-  % of spikes and their (t, x, y) coordinates.
+  % and returns an n x 3 table
+  % of the (t, x, y)-coordinates for all spikes
 
   % extract time-series vectors
   t = root.ts;
@@ -19,4 +19,5 @@ function data_table = getSpikeSpace(root)
   y = y(bindices);
 
   % assemble these vectors into a data table
+  % remove missing entries (where x and y aren't available)
   data_table = rmmissing(table(t, x, y));
