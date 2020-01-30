@@ -1,4 +1,4 @@
-function root = loadLightDarkCell()
+function [root, lightON, lightOFF] = loadLightDarkCell()
 
     % loads a light/dark cell from Holger's raw data
     % requires that the cluster is mounted to /mnt/hasselmogrp
