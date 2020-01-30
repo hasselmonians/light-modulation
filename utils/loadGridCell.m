@@ -1,4 +1,4 @@
-function root = loadData(n)
+function root = loadGridCell(n)
 
   % loads a grid cell from Holger's raw data
   % requires that the cluster is mounted to /mnt/hasselmgrp
