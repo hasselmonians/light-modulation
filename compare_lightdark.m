@@ -4,7 +4,7 @@
 [root, light_on, light_off] = loadLightDarkCell();
 
 % acquire the epoch sets
-epoch_sets = getEpochs(light_on, light_off, 'MinEpochDuration', 100);
+[epoch_sets, keep_these] = getEpochs(light_on, light_off, 'MinEpochDuration', 100);
 
 %% Compare adjacent epochs
 % in light/dark conditions
@@ -21,3 +21,42 @@ for ii = 1:2 % over both experimental conditions
         mean_firing_rate(qq, ii) = length(root.cel_ts{qq}) / diff(epoch_sets{ii}(qq, :));
     end
 end
+
+% light(t) to dark(t)
+light2dark = mean_firing_rate(:, 1) - mean_firing_rate(:, 2);
+
+% light(t+1) to dark(t)
+dark2light = mean_firing_rate(2:end, 1) - mean_firing_rate(1:end-1, 2);
+dark2light = [dark2light; NaN];
+
+%% Visualize
+
+figure;
+boxplot([light2dark dark2light])
+xlabel('conditions')
+xticklabels({'light minus dark', 'recovery light minus dark'})
+ylabel('mean firing rate difference (Hz)')
+figlib.pretty('PlotBuffer', 0.1)
+
+%% Visualize adjacent light-dark-light triplets
+
+% reorder the firing rate into: light | dark | light
+% the third column is just the first column shifted by one index forward
+% mean_firing_rate_LDL = [mean_firing_rate NaN(size(mean_firing_rate, 1), 1)];
+% mean_firing_rate_LDL(1:end-1, 3) = mean_firing_rate_LDL(2:end, 1);
+%
+% figure;
+% plot(1:3, mean_firing_rate_LDL, 'k-o')
+% ylabel('mean firing rate (Hz)')
+% xticks([1, 2, 3]);
+% xticklabels({'light', 'dark', 'light'})
+%
+% figlib.pretty('PlotBuffer', 0.1);
+%
+% figure;
+% plot(1:3, mean_firing_rate_LDL ./ mean_firing_rate(:, 1), 'k-o')
+% ylabel('mean firing rate (Hz)')
+% xticks([1, 2, 3]);
+% xticklabels({'light', 'dark', 'light'})
+%
+% figlib.pretty('PlotBuffer', 0.1);
