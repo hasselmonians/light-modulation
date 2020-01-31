@@ -9,17 +9,15 @@ epoch_sets = getEpochs(light_on, light_off, 'MinEpochDuration', 100);
 %% Compare adjacent epochs
 % in light/dark conditions
 
-% epoch_sets = [epoch_sets{:}];
-
 % mean firing rate
-mean_firing_rate = NaN(length(epoch_sets{1}), 2);
+mean_firing_rate = NaN(length(epoch_sets{1}), 2); % Hz
 
-for ii = 1:length(epoch_sets)
-    for qq = 1:2
-        % set the epoch to the correct one
-        root.epoch = epoch_sets{qq}(ii, :);
-
-        % compute the firing rate in Hz
-        mean_firing_rate(ii, qq) = length(root.cel_ts) / diff(epoch_sets{qq}(ii, :));
+for ii = 1:2 % over both experimental conditions
+    % gather all of the spike times for each of the epochs of that condition
+    root.epoch = epoch_sets{ii};
+    % iterate through the epochs and compute the mean firing rate
+    % by number of spikes per unit time
+    for qq = 1:size(root.epoch, 1)
+        mean_firing_rate(qq, ii) = length(root.cel_ts{qq}) / diff(epoch_sets{ii}(qq, :));
     end
 end
