@@ -53,3 +53,7 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
     epoch_sets{1} = epoch_sets{1}(keep_these, :);
     epoch_sets{2} = epoch_sets{2}(keep_these, :);
+
+    %% Outputs
+
+    varargout{1} = epoch_sets;
