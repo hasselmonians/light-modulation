@@ -25,7 +25,7 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     % instantiate options
     options = struct;
     options.MinEpochDuration = 100; % s
-    options.Verbosity = true;
+    options.Verbosity = false;
 
     if ~nargin & nargout
         varargout{1} = options;
