@@ -25,6 +25,7 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     % instantiate options
     options = struct;
     options.MinEpochDuration = 100; % s
+    options.MaxEpochDuration = 200; % s
     options.Verbosity = false;
 
     if ~nargin & nargout
@@ -47,9 +48,14 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
         error('something isn''t right with the epoch sets; are you sure they make sense causally?')
     end
 
-    %% Exclude short epochs
+    %% Exclude epochs that don't match filter criteria
 
-    keep_these = diff(epoch_sets{1}') >= options.MinEpochDuration;
+    % time lapses between epochs in the first condition
+    time_lapses = diff(epoch_sets{1}');
+
+    % go through filter criteria
+    keep_these = time_lapses >= options.MinEpochDuration;
+    keep_these = keep_these & time_lapses <= options.MaxEpochDuration;
 
     epoch_sets{1} = epoch_sets{1}(keep_these, :);
     epoch_sets{2} = epoch_sets{2}(keep_these, :);
