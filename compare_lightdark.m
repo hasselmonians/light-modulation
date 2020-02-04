@@ -42,21 +42,21 @@ figlib.pretty('PlotBuffer', 0.1)
 
 % reorder the firing rate into: light | dark | light
 % the third column is just the first column shifted by one index forward
-% mean_firing_rate_LDL = [mean_firing_rate NaN(size(mean_firing_rate, 1), 1)];
-% mean_firing_rate_LDL(1:end-1, 3) = mean_firing_rate_LDL(2:end, 1);
-%
-% figure;
-% plot(1:3, mean_firing_rate_LDL, 'k-o')
-% ylabel('mean firing rate (Hz)')
-% xticks([1, 2, 3]);
-% xticklabels({'light', 'dark', 'light'})
-%
-% figlib.pretty('PlotBuffer', 0.1);
-%
-% figure;
-% plot(1:3, mean_firing_rate_LDL ./ mean_firing_rate(:, 1), 'k-o')
-% ylabel('mean firing rate (Hz)')
-% xticks([1, 2, 3]);
-% xticklabels({'light', 'dark', 'light'})
-%
-% figlib.pretty('PlotBuffer', 0.1);
+mean_firing_rate_LDL = [mean_firing_rate NaN(size(mean_firing_rate, 1), 1)];
+mean_firing_rate_LDL(1:end-1, 3) = mean_firing_rate_LDL(2:end, 1);
+
+figure;
+plot(1:3, mean_firing_rate_LDL, 'k-o')
+ylabel('mean firing rate (Hz)')
+xticks([1, 2, 3]);
+xticklabels({'light', 'dark', 'light'})
+
+figlib.pretty('PlotBuffer', 0.1);
+
+figure;
+plot(1:3, mean_firing_rate_LDL ./ mean_firing_rate(:, 1), 'k-o')
+ylabel('mean firing rate (norm.)')
+xticks([1, 2, 3]);
+xticklabels({'light', 'dark', 'light'})
+
+figlib.pretty('PlotBuffer', 0.1);
