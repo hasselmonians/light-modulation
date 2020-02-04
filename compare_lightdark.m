@@ -22,12 +22,8 @@ for ii = 1:2 % over both experimental conditions
     end
 end
 
-% light(t) to dark(t)
-light2dark = mean_firing_rate(:, 1) - mean_firing_rate(:, 2);
-
-% light(t+1) to dark(t)
-dark2light = mean_firing_rate(2:end, 1) - mean_firing_rate(1:end-1, 2);
-dark2light = [dark2light; NaN];
+% get the mean firing rate differences and pairwise t-tests
+[light2dark, dark2light, ttest_light2dark, ttest_dark2light] = getLightDarkStats(mean_firing_rate);
 
 %% Visualize
 
