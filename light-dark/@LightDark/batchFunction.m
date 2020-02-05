@@ -9,6 +9,7 @@ function batchFunction(location, batchname, outfile, test)
 
     %% Load the raw data
 
+    % acquire all filenames and filecodes
     [filenames, filecodes] = RatCatcher.read([], location, batchname);
 
     %% Perform the main loop
@@ -44,6 +45,8 @@ function batchFunction(location, batchname, outfile, test)
         end
 
         % get the mean firing rate differences and perform pairwise t-tests
+        % light2dark means the nth light epoch compared to the nth dark epoch (light minus dark)
+        % dark2light means the (n+1)th light epoch compared to the nth dark epoch (light minus dark)
         [light2dark, dark2light, ttest_light2dark, ttest_dark2light] = getLightDarkStats(mean_firing_rate);
 
         %% Write output
