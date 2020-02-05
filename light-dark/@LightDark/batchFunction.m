@@ -45,17 +45,26 @@ function batchFunction(location, batchname, outfile, test)
         end
 
         % get the mean firing rate differences and perform pairwise t-tests
-        % light2dark means the nth light epoch compared to the nth dark epoch (light minus dark)
-        % dark2light means the (n+1)th light epoch compared to the nth dark epoch (light minus dark)
-        [light2dark, dark2light, ttest_light2dark, ttest_dark2light] = getLightDarkStats(mean_firing_rate);
+        % l2d means the nth light epoch compared to the nth dark epoch (light minus dark)
+        % d2l means the (n+1)th light epoch compared to the nth dark epoch (light minus dark)
+        [l2d, d2l, ttest_l2d, ttest_d2l] = getLightDarkStats(mean_firing_rate);
 
         %% Write output
 
+        output = NaN(1, 8);
+        this_struct_vec = [ttest_l2d, ttest_d2l];
+
         % hypothesis test result (1 => significance)
-        h = [ttest_light2dark.h, ttest_dark2light.h];
+        output(1:2) = [this_struct_vec.h];
+        % p-value
+        output(3:4) = [this_struct_vec.p];
         % t-statistic (+ve => mean firing rate in the light is greater than in the dark)
-        tstat = [ttest_light2dark.stats.tstat, ttest_dark2light.stats.tstat];
-        writematrix([h, tstat], [outfile, '-', num2str(index), '.csv'])
+        output(5:6) = [this_struct_vec.stats.tstat];
+        % degrees of freedom
+        output(7:8) = [this_struct_vec.df];
+
+        % write output to file
+        writematrix(output, [outfile, '-', num2str(index), '.csv'])
 
     end % parfor
 
