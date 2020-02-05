@@ -51,7 +51,12 @@ function batchFunction(location, batchname, outfile, test)
 
         %% Write output
 
-        % TODO: decide what to save
-        writematrix([a b c], [outfile, '-', num2str(index), '.csv'])
+        % hypothesis test result (1 => significance)
+        h = [ttest_light2dark.h, ttest_dark2light.h];
+        % t-statistic (+ve => mean firing rate in the light is greater than in the dark)
+        tstat = [ttest_light2dark.stats.tstat, ttest_dark2light.stats.tstat];
+        writematrix([h, tstat], [outfile, '-', num2str(index), '.csv'])
 
     end % parfor
+
+end % function
