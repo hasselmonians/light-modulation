@@ -20,7 +20,7 @@ function batchFunction(location, batchname, outfile, test)
         % expect a 1x1 CMBHOME.Session object named "root"
         % and two vectors named "lightON" and "lightOFF"
         load(filenames{index});
-        root.cel = filecode(index, :);
+        root.cel = filecodes(index, :);
 
         % acquire the epoch sets
         [epoch_sets, keep_these] = getEpochs(lightON, lightOFF, ...
