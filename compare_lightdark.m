@@ -28,7 +28,10 @@ end
 %% Visualize
 
 figure;
+ax = gca;
+hold on
 boxplot([light2dark dark2light])
+plot(ax.XLim, [0, 0], 'k--')
 xlabel('conditions')
 xticklabels({'light minus dark', 'recovery light minus dark'})
 ylabel('mean firing rate difference (Hz)')
