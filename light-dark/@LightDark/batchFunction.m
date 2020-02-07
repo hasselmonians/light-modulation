@@ -30,7 +30,7 @@ function batchFunction(location, batchname, outfile, test)
         root = this.root;
         lightON = this.lightON;
         lightOFF = this.lightOFF;
-        clear this
+        this = [];
 
         % set up the correct cell number / tetrode number
         root.cel = filecodes(index, :);
