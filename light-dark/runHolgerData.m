@@ -10,18 +10,10 @@ r.mode          = 'singular';
 r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
 r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
 
-disp(r)
+return
 
-response = input(['Do you want to begin batching? Y/N [Y]: '], 's');
+r.batchify
 
-if isempty(response)
-    response = 'Y';
-end
+return
 
-if strcmp(response, {'yes', 'Yes', 'Y', 'y'})
-    r = r.batchify;
-    disp(r)
-else
-    r = r.validate;
-    disp(r)
-end
+data_table = r.gather;
