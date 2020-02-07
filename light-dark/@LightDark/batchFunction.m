@@ -19,7 +19,8 @@ function batchFunction(location, batchname, outfile, test)
         % for each cell, load the data
         % expect a 1x1 CMBHOME.Session object named "root"
         % and two vectors named "lightON" and "lightOFF"
-        load(filenames{index});
+        this = load(filenames{index});
+        root = this.root;
         root.cel = filecodes(index, :);
 
         % acquire the epoch sets
