@@ -18,9 +18,14 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
     %% Preamble
 
-    assert(all(size(epoch_sets_1) == size(epoch_sets_2)), 'epoch sets 1 and 2 must be the same size')
+    % assert(all(size(epoch_sets_1) == size(epoch_sets_2)), 'epoch sets 1 and 2 must be the same size')
     assert(size(epoch_sets_1, 2) == 2, 'epoch set 1 must be an n x 2 matrix')
     assert(size(epoch_sets_2, 2) == 2, 'epoch set 2 must be an n x 2 matrix')
+
+    % trim epochs so that they are the same dimension
+    minDim = min(size(epoch_sets_1, 1), size(epoch_sets_2));
+    epoch_sets_1 = epoch_sets_1(1:minDim, :);
+    epoch_sets_2 = epoch_sets_2(1:minDim, :);
 
     % instantiate options
     options = struct;
