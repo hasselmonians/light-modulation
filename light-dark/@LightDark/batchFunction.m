@@ -21,6 +21,10 @@ function batchFunction(location, batchname, outfile, test)
         % and two vectors named "lightON" and "lightOFF"
         this = load(filenames{index});
         root = this.root;
+        lightON = this.lightON;
+        lightOFF = this.lightOFF;
+
+        % set up the correct cell number / tetrode number
         root.cel = filecodes(index, :);
 
         % acquire the epoch sets
