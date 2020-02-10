@@ -19,18 +19,26 @@ function batchFunction(location, batchname, outfile, test)
         % for each cell, load the data
         % expect a 1x1 CMBHOME.Session object named "root"
         % and two vectors named "lightON" and "lightOFF"
-        this = load(filenames{index});
+
+        if test
+            this = load(strrep(filenames{index}, 'projectnb', 'mnt'));
+        else
+            this = load(filenames{index});
+        end
+
+        % extract individual variables
         root = this.root;
         lightON = this.lightON;
         lightOFF = this.lightOFF;
+        this = [];
 
         % set up the correct cell number / tetrode number
         root.cel = filecodes(index, :);
 
         % acquire the epoch sets
         [epoch_sets, keep_these] = getEpochs(lightON, lightOFF, ...
-            'MinEpochDuration', 100, ...
-            'MaxEpochDuration', 300, ...
+            'MinEpochDuration', 0, ...
+            'MaxEpochDuration', 1e9, ...
             'Verbosity', false);
 
         %% Compare adjacent epochs
@@ -64,9 +72,9 @@ function batchFunction(location, batchname, outfile, test)
         % p-value
         output(3:4) = [this_struct_vec.p];
         % t-statistic (+ve => mean firing rate in the light is greater than in the dark)
-        output(5:6) = [this_struct_vec.stats.tstat];
+        output(5:6) = [this_struct_vec(1).stats.tstat, this_struct_vec(2).stats.tstat];
         % degrees of freedom
-        output(7:8) = [this_struct_vec.df];
+        output(7:8) = [this_struct_vec(1).stats.df, this_struct_vec(2).stats.df];
 
         % write output to file
         writematrix(output, [outfile, '-', num2str(index), '.csv'])
