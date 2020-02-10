@@ -12,7 +12,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
     %       for each experimental condition (e.g. light and dark)
     %   options: a struct of options,
     %       or as Name-Value pairs:
-    %           Verbosity: logical scalar, print textual output, default: false
+    %       Verbosity: logical scalar, print textual output, default: false
     %
     %% Outputs:
     %   options: a struct of options
