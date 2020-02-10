@@ -19,7 +19,8 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     %
     %% Examples:
     %   options = getEpochs();
-    %   epoch_sets = getEpochs(options);
+    %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2, options);
+    %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2);
     %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2, 'Name', value, ...);
     %
     % See Also: spliceEpochs, getLightDarkStats
