@@ -13,6 +13,10 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     %% Outputs:
     %   options: a struct of options, which the function accepts as a single
     %       struct argument, or as Name-Value pairs
+    %       MinEpochDuration: numerical scalar, minimum duration of an epoch to be accepted, default: 0
+    %       MaxEpochDuration: numerical scalar, maximum duration of an epoch to be accepted, default: Inf
+    %       Trim: logical scalar, whether to trim uneven epochs to the smaller size, default: false
+    %       Verbosity: logical scalar, whether to print textual output, default: false
     %   epoch_sets: a 1x2 cell array containing the filtered epoch times (start and stop)
     %       you can collapse them into a matrix with [epoch_sets{:}]
     %       this should always be true: epoch_sets{1}(:, 2) <= epoch_sets{2}(:, 1)
@@ -27,27 +31,37 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
     %% Preamble
 
-    % assert(all(size(epoch_sets_1) == size(epoch_sets_2)), 'epoch sets 1 and 2 must be the same size')
-    assert(size(epoch_sets_1, 2) == 2, 'epoch set 1 must be an n x 2 matrix')
-    assert(size(epoch_sets_2, 2) == 2, 'epoch set 2 must be an n x 2 matrix')
-
-    % trim epochs so that they are the same dimension
-    minDim = min(size(epoch_sets_1, 1), size(epoch_sets_2));
-    epoch_sets_1 = epoch_sets_1(1:minDim, :);
-    epoch_sets_2 = epoch_sets_2(1:minDim, :);
-
     % instantiate options
     options = struct;
     options.MinEpochDuration = 0; % s
     options.MaxEpochDuration = Inf; % s
+    options.Trim = false;
     options.Verbosity = false;
 
     if ~nargin & nargout
         varargout{1} = options;
+        options = orderfields(options);
         return
     end
 
     options = corelib.parseNameValueArguments(options, varargin{:});
+
+    %% Pre-processing
+
+    assert(size(epoch_sets_1, 2) == 2, 'epoch set 1 must be an n x 2 matrix')
+    assert(size(epoch_sets_2, 2) == 2, 'epoch set 2 must be an n x 2 matrix')
+
+    if options.Trim
+        % trim epochs so that they are the same dimension
+        minDim = min(size(epoch_sets_1, 1), size(epoch_sets_2));
+        epoch_sets_1 = epoch_sets_1(1:minDim, :);
+        epoch_sets_2 = epoch_sets_2(1:minDim, :);
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/getEpochs', 'epochs trimmed')
+    else
+        corelib.verb(options.Verbosity && all(size(epoch_sets_1) == size(epoch_sets_2)), ...
+        'grid-cell-spiking/getEpochs', ...
+        'epoch sets are differently-sized')
+    end
 
     %% Determine which epoch set came first
 
