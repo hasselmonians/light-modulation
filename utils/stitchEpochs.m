@@ -1,4 +1,4 @@
-function varargout = spliceEpochs(epoch_sets, varargin)
+function varargout = stitchEpochs(epoch_sets, varargin)
 
     %% Description:
     %   Splices a cell array of epochs into a single n x 3 matrix,
@@ -17,7 +17,7 @@ function varargout = spliceEpochs(epoch_sets, varargin)
     %   options: a struct of options, which the function accepts as a single
     %       struct argument, or as Name-Value pairs
     %       Verbosity: logical scalar, print textual output, default: false
-    %   spliced_epochs: an n x 3 matrix
+    %   stitched_epochs: an n x 3 matrix
     %       where the first column contains the starts of the light times,
     %       the second column contains the transition times,
     %       and the third column contains the end of the dark times
@@ -25,10 +25,10 @@ function varargout = spliceEpochs(epoch_sets, varargin)
     %
     %% Examples:
     %
-    %   options = spliceEpochs()
-    %   spliced_epochs = spliceEpochs(epoch_sets)
-    %   spliced_epochs = spliceEpochs(epoch_sets, options)
-    %   spliced_epochs = spliceEpochs(epoch_sets, 'Name', value, ...)
+    %   options = stitchEpochs()
+    %   stitched_epochs = stitchEpochs(epoch_sets)
+    %   stitched_epochs = stitchEpochs(epoch_sets, options)
+    %   stitched_epochs = stitchEpochs(epoch_sets, 'Name', value, ...)
     %
     % See Also: getEpochs, getLightDarkStats
 
@@ -50,12 +50,12 @@ function varargout = spliceEpochs(epoch_sets, varargin)
 
     %% Main
 
-    spliced_epochs = NaN(size(epoch_sets{1}, 1), 3);
-    spliced_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
-    spliced_epochs(:, 3) = epoch_sets{2}(:, 2);
+    stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
+    stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
+    stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
 
     %% Outputs
 
-    varargout{1} = spliced_epochs;
+    varargout{1} = stitched_epochs;
 
 end % function
