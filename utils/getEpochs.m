@@ -5,18 +5,18 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     %   containing start and stop times
     %
     %% Arguments:
-    %   epochs: should be n x 2 matrices of start and stop times in seconds
+    %   epoch_sets_1 and _2: should be n x 2 matrices of start and stop times in seconds
     %       each describing a different condition
     %       we're assuming that there are only two conditions
     %       which alternate
-    %
-    %% Outputs:
     %   options: a struct of options, which the function accepts as a single
     %       struct argument, or as Name-Value pairs
     %       MinEpochDuration: numerical scalar, minimum duration of an epoch to be accepted, default: 0
     %       MaxEpochDuration: numerical scalar, maximum duration of an epoch to be accepted, default: Inf
     %       Trim: logical scalar, whether to trim uneven epochs to the smaller size, default: false
     %       Verbosity: logical scalar, whether to print textual output, default: false
+    %
+    %% Outputs:
     %   epoch_sets: a 1x2 cell array containing the filtered epoch times (start and stop)
     %       you can collapse them into a matrix with [epoch_sets{:}]
     %       this should always be true: epoch_sets{1}(:, 2) <= epoch_sets{2}(:, 1)
@@ -27,7 +27,7 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
     %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2);
     %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2, 'Name', value, ...);
     %
-    % See Also: spliceEpochs, getLightDarkStats
+    % See Also: stitchEpochs, getLightDarkStats
 
     %% Preamble
 
