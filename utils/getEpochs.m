@@ -1,20 +1,28 @@
 function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
-    % options = getEpochs();
-    % epoch_sets = getEpochs(options);
-    % epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2, 'Name', value, ...);
-
+    %% Description:
+    %   Generates a 1x2 cell array of epochs from two n x 2 matrices
+    %   containing start and stop times
+    %
     %% Arguments:
     %   epochs: should be n x 2 matrices of start and stop times in seconds
     %       each describing a different condition
     %       we're assuming that there are only two conditions
     %       which alternate
+    %
     %% Outputs:
     %   options: a struct of options, which the function accepts as a single
     %       struct argument, or as Name-Value pairs
     %   epoch_sets: a 1x2 cell array containing the filtered epoch times (start and stop)
     %       you can collapse them into a matrix with [epoch_sets{:}]
     %       this should always be true: epoch_sets{1}(:, 2) <= epoch_sets{2}(:, 1)
+    %
+    %% Examples:
+    %   options = getEpochs();
+    %   epoch_sets = getEpochs(options);
+    %   epoch_sets = getEpochs(epoch_sets_1, epoch_sets_2, 'Name', value, ...);
+    %
+    % See Also: spliceEpochs, getLightDarkStats
 
     %% Preamble
 
