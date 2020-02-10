@@ -16,6 +16,7 @@ function varargout = spliceEpochs(epoch_sets, varargin)
     %% Outputs:
     %   options: a struct of options, which the function accepts as a single
     %       struct argument, or as Name-Value pairs
+    %       Verbosity: logical scalar, print textual output, default: false
     %   spliced_epochs: an n x 3 matrix
     %       where the first column contains the starts of the light times,
     %       the second column contains the transition times,
@@ -31,6 +32,30 @@ function varargout = spliceEpochs(epoch_sets, varargin)
     %
     % See Also: getEpochs, getLightDarkStats
 
+    %% Preamble
 
+    % instantiate options
+    options = struct;
+    options.Verbosity = false;
+
+    if ~nargin & nargout
+        varargout{1} = options;
+        options = orderfields(options);
+        return
+    end
+
+    options = corelib.parseNameValueArguments(options, varargin{:});
+
+    assert(all(size(epoch_sets{1}), size(epoch_sets{2})), 'epoch sizes must be the same')
+
+    %% Main
+
+    spliced_epochs = NaN(size(epoch_sets{1}, 1), 3);
+    spliced_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
+    spliced_epochs(:, 3) = epoch_sets{2}(:, 2);
+
+    %% Outputs
+
+    varargout{1} = spliced_epochs;
 
 end % function
