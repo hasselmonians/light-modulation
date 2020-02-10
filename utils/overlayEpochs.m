@@ -17,8 +17,14 @@ function [varargout] = overlayEpochs(root, epoch_times, varargin)
     %   options: a struct of options
     %   spike_counts: cell array of numerical vectors,
     %       binned spike counts for each combined epoch
+    %   edges: cell array of numerical vectors
+    %       bin edges of the spike counts
     %
     %% Examples:
+    %   options = overlayEpochs();
+    %   [spike_counts, edges] = overlayEpochs(root, epoch_times);
+    %   [spike_counts, edges] = overlayEpochs(root, epoch_times, options);
+    %   [spike_counts, edges] = overlayEpochs(root, epoch_times, 'Name', value, ...);
     %
     % See Also: getEpochs, stitchEpochs
 
