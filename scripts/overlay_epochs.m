@@ -19,122 +19,55 @@
 % acquire the start, transition, and stop times
 [epoch_times] = stitchEpochs(epoch_sets);
 
-% get the spike times in a cell array of numerical vectors
-root.epoch = epoch_times(:, [1, 3]);
+%% Acquire the overlaid epochs
 
-%% Acquire spike trains
+% produces a cell array of spike counts binned at 5 s
+[spike_counts, edges] = overlayEpochs(root, epoch_times(:, [1, 3]), ...
+    'BinWidth', 5, ...
+    'TimeShift', epoch_times(:, 2), ...
+    'Verbosity', true);
 
-% % timestamps of the spike train time series centered at the transition time (s)
-% timestamps      = cell(size(epoch_times, 1), 1);
-% % peristimulus time histogram spike train (ideally, this is close to binary)
-% spike_trains    = cell(size(epoch_times, 1), 1);
-%
-% % get the spike trains
-% for ii = 1:length(spike_trains)
-%     timestamps{ii} = root.ts{ii} - epoch_times(ii, 2);
-%     spike_trains{ii} = getSpikeTrain(root.cel_ts{ii}, root.ts{ii});
-% end
+%% Pad spike counts
 
-%% Acquire peristimulus time histograms
+% produces a matrix of binned spike counts, padded by NaNs
+[padded_spike_counts, timestamps] = padSpikeCounts(spike_counts, edges, 'both');
 
-% container for peristimulus time histogram spike count data
-spike_counts    = cell(size(epoch_times, 1), 1);
-edges           = cell(size(epoch_times, 1), 1);
-
-for ii = 1:length(spike_counts)
-    [spike_counts{ii}, edges{ii}] = histcounts(root.cel_ts{ii}, ...
-        'BinWidth', 5, ...
-        'Normalization', 'countdensity');
-    edges{ii} = edges{ii} - epoch_times(ii, 2);
-end
-
-% extend spike counts and edges into matrices
-[nBins, bin_index] = max(cellfun('length', spike_counts));
-
-for ii = 1:length(spike_counts)
-    nPads = (nBins - length(spike_counts{ii})) / 2;
-    spike_counts{ii} = padarray(spike_counts{ii}, [0, nPads], NaN, 'both');
-    edges{ii} = padarray(edges{ii}, [0, nPads], NaN, 'both');
-end
-
-% convert spike counts and bin edges into matrices
-padded_spike_counts = cell2mat(spike_counts);
-padded_edges = cell2mat(edges);
-
-% find the mean and standard deviation of the spike counts
+% find the mean and standard deviation of the binned spike counts
 mean_spike_counts = mean(padded_spike_counts, 1, 'omitnan');
 std_spike_counts = std(padded_spike_counts, 0, 1, 'omitnan');
 
 %% Visualize
 
+% mean binned spike count (over all combined epochs)
+% error-shaded with standard deviation
 figure;
 
-plotlib.shadedErrorBar(edges{bin_index}(1:length(mean_spike_counts)), mean_spike_counts, std_spike_counts);
+plotlib.shadedErrorBar(timestamps(1:end-1), mean_spike_counts, std_spike_counts);
 xlabel('time (s)')
 ylabel('spikes/sec')
 figlib.pretty('PlotBuffer', 0.1);
 
+% z-scored mean binned spike count (over all combined epochs)
 figure;
 z_spike_counts = (mean_spike_counts - mean(mean_spike_counts)) ./ std(mean_spike_counts);
-plot(edges{bin_index}(1:length(mean_spike_counts)), z_spike_counts);
+plot(timestamps(1:end-1), z_spike_counts);
 xlabel('time (s)')
 ylabel('spikes/sec')
 figlib.pretty('PlotBuffer', 0.1);
 
-%% Visualize PSTH
+% Visualize PSTH
 
-% % cmat = colormaps.linspecer(length(spike_counts));
-% cmat = lines;
-%
-% figure;
-% hold on;
-%
-% for ii = 1:length(spike_counts)
-%     % histogram('BinEdges', edges{ii}, 'BinCounts', spike_counts{ii}, ...
-%     %     'DisplayStyle', 'stairs', ...
-%     %     'EdgeColor', cmat(ii, :))
-%
-%     histogram('BinEdges', edges{ii}, 'BinCounts', spike_counts{ii}, ...
-%         'EdgeColor', cmat(ii, :))
-% end
-%
-% xlabel('time (s)')
-% ylabel('spikes/sec')
-% figlib.pretty('PlotBuffer', 0.1);
+% cmat = colormaps.linspecer(length(spike_counts));
+cmat = lines;
 
+figure;
+hold on;
 
-%% Visualize
+for ii = 1:length(spike_counts)
+    histogram('BinEdges', edges{ii}, 'BinCounts', spike_counts{ii}, ...
+        'EdgeColor', cmat(ii, :))
+end
 
-% % plot the raw spike trains
-% figure;
-% hold on
-% cmat = colormaps.linspecer(length(spike_trains));
-%
-% for ii = 1:length(spike_trains)
-%     stairs(timestamps{ii}, spike_trains{ii}, 'Color', cmat(ii, :))
-% end
-%
-% xlabel('time (s)')
-% ylabel('spike train')
-% figlib.pretty('PlotBuffer', 0.1)
-%
-% % plot spike trains smoothed with a filter
-% this_filter = ones(1000, 1);
-% this_filter = this_filter / sum(this_filter);
-%
-% filtered_spike_trains = cell(size(spike_trains, 1), 1);
-% for ii = 1:length(spike_trains)
-%     filtered_spike_trains{ii} = NeuralDecoder.encode(spike_trains{ii}, this_filter);
-% end
-%
-% figure;
-% hold on
-% cmat = colormaps.linspecer(length(spike_trains));
-%
-% for ii = 1:length(spike_trains)
-%     stairs(timestamps{ii}, filtered_spike_trains{ii}, 'Color', cmat(ii, :))
-% end
-%
-% xlabel('time (s)')
-% ylabel('firing rate (a.u.)')
-% figlib.pretty('PlotBuffer', 0.1)
+xlabel('time (s)')
+ylabel('spikes/sec')
+figlib.pretty('PlotBuffer', 0.1);
