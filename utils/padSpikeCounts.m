@@ -1,7 +1,9 @@
 function [padded_spike_counts, timestamps] = padSpikeCounts(spike_counts, edges, direction)
 
     %% Description:
-    %   Stacks epochs and gathers binned spike counts from those epochs.
+    %   Pad spike counts so that they can be compressed from a cell array
+    %   into a matrix.
+    %   Padding is done with NaNs.
     %
     %% Arguments:
     %   spike_counts: cell array of numerical vectors,
