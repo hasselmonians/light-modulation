@@ -1,5 +1,7 @@
 function batchFunction(location, batchname, outfile, test)
 
+    % Test for significance of mean firing rate changes between light and dark epochs.
+
     if ~test
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/RatCatcher'))
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/srinivas.gs_mtools'))
