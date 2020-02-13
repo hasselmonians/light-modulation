@@ -14,14 +14,22 @@ function batchFunction(location, batchname, outfile, test)
     % acquire all filenames and filecodes
     [filenames, filecodes] = RatCatcher.read([], location, batchname);
 
-    %% Perform the main loop
+    % collect unique filenames and a linear index vector map
+    [unique_filenames, ~, filename_index] = unique(filenames);
 
-    parfor index = 1:length(filenames)
+    %% Perform the main loop over all unique filenames
 
+    parfor ii = 1:length(unique_filenames)
+
+        % find the linear indices into 'filenames' and 'filecodes'
+        % for all filecodes associated with the unique filename
+        these_indices = find(filename_index == ii);
+
+        % load the correct data file
         if test
-            this = load(strrep(filenames{index}, 'projectnb', 'mnt'));
+            this = load(strrep(unique_filenames{ii}), 'projectnb', 'mnt');
         else
-            this = load(filenames{index});
+            this = load(unique_filenames{ii});
         end
 
         % extract individual variables
@@ -30,36 +38,45 @@ function batchFunction(location, batchname, outfile, test)
         lightOFF = this.lightOFF;
         this = [];
 
-        % set up the correct cell number / tetrode number
-        root.cel = filecodes(index, :);
+        %% Sub-loop over all filecodes, given a unique filename
 
-        % acquire the epoch sets
-        [epoch_sets] = getEpochs(lightON, lightOFF, ...
-            'MinEpochDuration', 0, ...
-            'MaxEpochDuration', Inf, ...
-            'Trim', true, ...
-            'Verbosity', true);
+        % iterate over all filecodes and perform the analysis
+        for qq = 1:length(these_indices)
 
-        % acquire the start, transition, and stop times
-        [epoch_times] = stitchEpochs(epoch_sets);
+            % set up the correct cell number / tetrode number
+            root.cel = filecodes(these_indices(qq), :);
 
-        %% Acquire the overlaid epochs
+            % acquire the epoch sets
+            [epoch_sets] = getEpochs(lightON, lightOFF, ...
+                'MinEpochDuration', 0, ...
+                'MaxEpochDuration', Inf, ...
+                'Trim', true, ...
+                'Verbosity', true);
 
-        % produces a cell array of spike counts binned at 5 s
-        [spike_counts, edges] = overlayEpochs(root, epoch_times(:, [1, 3]), ...
-            'BinWidth', 5, ...
-            'TimeShift', epoch_times(:, 2), ...
-            'Verbosity', true);
+            % acquire the start, transition, and stop times
+            [epoch_times] = stitchEpochs(epoch_sets);
 
-        %% Pad spike counts
+            %% Acquire the overlaid epochs
 
-        % produces a matrix of binned spike counts, padded by NaNs
-        [padded_spike_counts, timestamps] = padSpikeCounts(spike_counts, edges, 'both');
+            % produces a cell array of spike counts binned at 5 s
+            [spike_counts, edges] = overlayEpochs(root, epoch_times(:, [1, 3]), ...
+                'BinWidth', 5, ...
+                'TimeShift', epoch_times(:, 2), ...
+                'Verbosity', true);
+
+            %% Pad spike counts
+
+            % produces a matrix of binned spike counts, padded by NaNs
+            [padded_spike_counts, timestamps] = padSpikeCounts(spike_counts, edges, 'both');
+
+            %% Write Output
+
+            this_outfile = [outfile, '-', num2str(these_indices(qq)) '.csv'];
+            writematrix([timestamps; padded_spike_counts], this_outfile);
+
+        end % qq
 
     end % parfor
 
-    %% Write Output
-
-    % TODO
 
 end % function
