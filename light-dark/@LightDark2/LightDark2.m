@@ -1,4 +1,4 @@
-classdef LightDark
+classdef LightDark2
 
 properties
 
