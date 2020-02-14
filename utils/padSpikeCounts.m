@@ -36,6 +36,9 @@ function [padded_spike_counts, timestamps] = padSpikeCounts(spike_counts, edges,
     for ii = 1:length(spike_counts)
         nPads = floor((nBins - length(spike_counts{ii})) / 2);
         spike_counts{ii} = padarray(spike_counts{ii}, [0, nPads], NaN, direction);
+        if length(spike_counts{ii}) < nBins
+            spike_counts{ii} = padarray(spike_counts{ii}, [0, 1], NaN, 'post');
+        end
     end
 
     % convert spike counts and bin edges into matrices
