@@ -72,7 +72,7 @@ function batchFunction(location, batchname, outfile, test)
             %% Write Output
 
             this_outfile = [outfile, '-', num2str(these_indices(qq)) '.csv'];
-            writematrix([timestamps; padded_spike_counts], this_outfile);
+            writematrix([timestamps; [padded_spike_counts NaN(size(padded_spike_counts, 1), 1)]], this_outfile);
 
         end % qq
 
