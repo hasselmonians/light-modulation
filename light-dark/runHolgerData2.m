@@ -14,9 +14,9 @@ data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LightDark.mat');
 
 % filter the raw data
 filtered_data_table = filterDataTable(data.data_table, ...
-    'p', 0.05, ...
+    'p', 0.01, ...
     'Modulation', 'positive', ...
-    'Mode', 'l2d');
+    'Mode', 'both');
 
 % use filenames and filecodes from the filtered data table
 r.filenames     = filtered_data_table.filenames;
@@ -24,7 +24,11 @@ r.filecodes     = filtered_data_table.filecodes;
 
 return
 
+%% Run on the cluster
+
 r.batchify
+
+return
 
 %% Post-processing
 
