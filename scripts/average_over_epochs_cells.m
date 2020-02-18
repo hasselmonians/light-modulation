@@ -20,6 +20,7 @@ end
     padSpikeCounts(mean_binned_spike_counts, data_table.timestamps, 'both');
 
 %% Average over padded mean binned spike counts
+% NOTE: z-score normalize before averaging
 
 [these_spike_counts, these_errors] = averageOverNaNs(padded_mean_binned_spike_counts);
 
