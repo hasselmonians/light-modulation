@@ -11,7 +11,7 @@ function varargout = filterDataTable(data_table, varargin)
     %       p: numerical scalar, the p-value threshold for significance, default: 0.05
     %       Modulation: character vector, if 'positive', finds only positively-modulated cells,
     %           if 'negative', finds only negatively-modulated cells,
-    %           if 'both', finds all modulated cells, default: 'both'
+    %           if 'both', finds all modulated cells, default: 'positive'
     %       Mode: character vector, either 'l2d' (light to dark conditions),
     %           or 'd2l' (dark to light) or 'both', default: 'both'
     %       Verbosity: logical scalar, whether to print textual output, default: false
@@ -32,8 +32,8 @@ function varargout = filterDataTable(data_table, varargin)
 
     options = struct;
     options.p = 0.05;
-    options.Modulation = 'both';
-    options.Mode = 'l2d';
+    options.Modulation = 'positive';
+    options.Mode = 'both';
     options.Verbosity = false;
 
     if ~nargin & nargout
@@ -70,11 +70,11 @@ function varargout = filterDataTable(data_table, varargin)
     case 'both'
         switch options.Modulation
         case 'positive'
-            keep_these = (data_table.l2d_p < options.p | data_table.d2l_p < options.p) & (data_table.l2d_tstat > 0 | data_table.d2l_tstat > 0);
+            keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p) & (data_table.l2d_tstat > 0 & data_table.d2l_tstat > 0);
         case 'negative'
-            keep_these = (data_table.l2d_p < options.p | data_table.d2l_p < options.p) & (data_table.l2d_tstat < 0 | data_table.d2l_tstat < 0);
+            keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p) & (data_table.l2d_tstat < 0 & data_table.d2l_tstat < 0);
         case 'both'
-            keep_these = (data_table.l2d_p < options.p | data_table.d2l_p < options.p);
+            keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p);
         end
     end
 
