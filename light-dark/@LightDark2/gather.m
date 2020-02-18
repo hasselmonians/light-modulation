@@ -9,6 +9,9 @@ function data_table = gather(r, filekey)
     %   r: the RatCatcher object
     %       requires the r.localpath property to be set
     %       and for the output files to exist
+    %   filekey: a search keyword for finding the output files
+    %     by default, it is set by examining the batchname property of r
+    %     this is usually correct
     %
     % Outputs:
     %   data_table: a table containing the timestamps and the binned spike times
@@ -142,10 +145,10 @@ function data_table = gather(r, filekey)
     % append to extant data table, if there is one
     if exist('dataTable0') && ~isempty(dataTable0)
       if ~isempty(dataTable)
-        dataTable = [dataTable0; dataTable];
+        data_table = [dataTable0; dataTable];
       else
 
-        dataTable = dataTable0;
+        data_table = dataTable0;
       end
     end
 
