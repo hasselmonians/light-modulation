@@ -22,7 +22,9 @@ end
 %% Average over padded mean binned spike counts
 % NOTE: z-score normalize before averaging
 
-[these_spike_counts, these_errors] = averageOverNaNs(padded_mean_binned_spike_counts);
+zscored_spike_counts = zscoreOverNaNs(padded_mean_binned_spike_counts);
+
+return
 
 %% Visualize
 
