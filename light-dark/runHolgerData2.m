@@ -29,6 +29,7 @@ r.batchify
 %% Post-processing
 
 data_table = LightDark2.gather(r);
+data_table = [data_table, table(r.filenames, r.filecodes, 'VariableNames', {'filenames', 'filecodes'})];
 
 %% Save results
 
