@@ -52,7 +52,7 @@ figure;
 z_spike_counts = (mean_spike_counts - mean(mean_spike_counts)) ./ std(mean_spike_counts);
 plot(timestamps(1:end-1), z_spike_counts);
 xlabel('time (s)')
-ylabel('spikes/sec')
+ylabel('a.u.')
 figlib.pretty('PlotBuffer', 0.1);
 
 % Visualize PSTH
