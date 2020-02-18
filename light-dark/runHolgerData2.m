@@ -28,7 +28,7 @@ r.batchify
 
 %% Post-processing
 
-data_table = r.gather;
+data_table = LightDark2.gather(r);
 
 %% Save results
 
