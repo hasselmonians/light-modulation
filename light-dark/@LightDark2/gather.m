@@ -137,6 +137,8 @@ function data_table = gather(r, filekey)
       spike_counts{ii} = data{ii}(2:end, 1:end-1);
     end
 
+    data_table = table(timestamps, spike_counts);
+
     %% Cleanup
 
     % return from whence you came
