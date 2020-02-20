@@ -22,7 +22,7 @@ function r = getSecondPassRatCatcher(condition_number)
     %% Examples:
     %   r = getSecondPassRatCatcher(1);
     %
-    % See Also: RatCatcher.batchify
+    % See Also: RatCatcher.batchify, LightDark2.gather
 
     %% Preamble
 
