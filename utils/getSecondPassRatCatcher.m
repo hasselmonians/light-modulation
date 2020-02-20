@@ -1,4 +1,4 @@
-function r = getSecondPassRatCatcher(condition_number)
+function r = getSecondPassRatCatcher(protocol, condition_number)
 
     %% Description:
     %   Generates a RatCatcher object for running one of four conditions
@@ -10,6 +10,7 @@ function r = getSecondPassRatCatcher(condition_number)
     % There are hard-coded paths in this function.
     %
     %% Arguments:
+    %   protocol: character vector, either 'LightDark' or 'DarkLight'
     %   condition_number: numerical scalar, an integer 1-4
     %       1: p = 0.01, modulation = positive
     %       2: p = 0.05, modulation = positive
@@ -25,6 +26,9 @@ function r = getSecondPassRatCatcher(condition_number)
     % See Also: RatCatcher.batchify, LightDark2.gather
 
     %% Preamble
+
+    assert(any(strcmp(protocol, {'LightDark', 'DarkLight'})), ...
+        'protocol must be either ''DarkLight'' or ''LightDark''')
 
     switch condition_number
     case 1
@@ -45,14 +49,24 @@ function r = getSecondPassRatCatcher(condition_number)
 
     %% Instantiate the RatCatcher object
 
-    r               = RatCatcher;
-    r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster2';
-    r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster2';
-    r.protocol      = 'LightDark2';
-    r.expID         = 'Holger';
-    r.project       = 'hasselmogrp';
-    r.verbose       = true;
-    r.mode          = 'singular';
+    r                   = RatCatcher;
+
+    switch protocol
+    case 'LightDark'
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
+        r.protocol      = 'LightDark2';
+    case 'DarkLight'
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight2';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight2';
+        r.protocol      = 'DarkLight2';
+    end
+
+    % define other properties that don't depend on the protocol
+    r.expID             = 'Holger';
+    r.project           = 'hasselmogrp';
+    r.verbose           = true;
+    r.mode              = 'singular';
 
     % define the batchname using the condition number
     r.batchname     = [r.expID, '-', r.protocol, '-', num2str(condition_number)];
@@ -60,7 +74,12 @@ function r = getSecondPassRatCatcher(condition_number)
     %% Construct filename and filecode lists
 
     % load the raw data from the cluster
-    data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LightDark.mat');
+    switch protocol
+    case 'LightDark'
+        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LightDark.mat');
+    case 'DarkLight'
+        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-DarkLight.mat');
+    end
 
     % filter the raw data
     filtered_data_table = filterDataTable(data.data_table, ...
