@@ -1,6 +1,6 @@
 r               = RatCatcher;
-r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster2';
-r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster2';
+r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
+r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
 r.protocol      = 'LightDark2';
 r.expID         = 'Holger';
 r.project       = 'hasselmogrp';
