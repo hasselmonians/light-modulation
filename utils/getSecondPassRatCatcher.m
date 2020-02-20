@@ -21,7 +21,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     %   r: a RatCatcher object
     %
     %% Examples:
-    %   r = getSecondPassRatCatcher(1);
+    %   r = getSecondPassRatCatcher(protocol, condition_number);
     %
     % See Also: RatCatcher.batchify, LightDark2.gather
 
