@@ -2,6 +2,8 @@
 % gather the data afterwards
 % save the data and copy to cluster
 
+%% LightDark %%
+
 %% Instantiate the RatCatcher objects
 
 for ii = 4:-1:1
