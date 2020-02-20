@@ -1,51 +1,27 @@
-function r = getSecondPassRatCatcher(protocol, condition_number)
+function r = getFirstPassRatCatcher(protocol)
 
     %% Description:
-    %   Generates a RatCatcher object for running one of four conditions
-    %   in the LightDark experiment second-pass.
-    %   The conditions vary by the p-value confidence of light-modulation
-    %   and whether this modulation is positive or negative.
+    %   Generates a RatCatcher object for running one of the LightDark or DarkLight
+    %   experiments in the first-pass.
     %
     % NOTE: This function assumes that the SCC is mounted at /mnt/hasselmogrp
     % There are hard-coded paths in this function.
     %
     %% Arguments:
     %   protocol: character vector, either 'LightDark' or 'DarkLight'
-    %   condition_number: numerical scalar, an integer 1-4
-    %       1: p = 0.01, modulation = positive
-    %       2: p = 0.05, modulation = positive
-    %       3: p = 0.01, modulation = negative
-    %       4: p = 0.05, modulation = negative
     %
     %% Outputs:
     %   r: a RatCatcher object
     %
     %% Examples:
-    %   r = getSecondPassRatCatcher(protocol, condition_number);
+    %   r = getFirstPassRatCatcher(protocol);
     %
-    % See Also: getFirstPassRatCatcher
+    % See Also: getSecondPassRatCatcher
 
     %% Preamble
 
     assert(any(strcmp(protocol, {'LightDark', 'DarkLight'})), ...
         'protocol must be either ''DarkLight'' or ''LightDark''')
-
-    switch condition_number
-    case 1
-        p = 0.01;
-        modulation = 'positive';
-    case 2
-        p = 0.05;
-        modulation = 'positive';
-    case 3
-        p = 0.01;
-        modulation = 'negative';
-    case 4
-        p = 0.05;
-        modulation = 'negative';
-    otherwise
-        error('condition_number should be an integer between 1 and 4')
-    end
 
     %% Instantiate the RatCatcher object
 
@@ -53,13 +29,28 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
 
     switch protocol
     case 'LightDark'
-        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
-        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark2';
-        r.protocol      = 'LightDark2';
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark';
+        r.protocol      = 'LightDark';
+        r.expID         = 'Holger';
+        r.project       = 'hasselmogrp';
+        r.verbose       = true;
+        r.mode          = 'singular';
+
+        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
+        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
     case 'DarkLight'
-        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight2';
-        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight2';
-        r.protocol      = 'DarkLight2';
+        r               = RatCatcher;
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight';
+        r.protocol      = 'DarkLight';
+        r.expID         = 'Holger';
+        r.project       = 'hasselmogrp';
+        r.verbose       = true;
+        r.mode          = 'singular';
+
+        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
+        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
     end
 
     % define other properties that don't depend on the protocol
