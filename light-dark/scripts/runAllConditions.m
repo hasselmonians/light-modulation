@@ -5,7 +5,7 @@
 %% Instantiate the RatCatcher objects
 
 for ii = 4:-1:1
-    rc(ii) = getSecondPassRatCatcher(ii);
+    rc(ii) = getSecondPassRatCatcher('LightDark', ii);
     rc(ii) = rc(ii).validate;
 end
 
