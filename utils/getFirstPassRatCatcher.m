@@ -49,27 +49,4 @@ function r = getFirstPassRatCatcher(protocol)
     r.verbose           = true;
     r.mode              = 'singular';
 
-    % define the batchname using the condition number
-    r.batchname     = [r.expID, '-', r.protocol, '-', num2str(condition_number)];
-
-    %% Construct filename and filecode lists
-
-    % load the raw data from the cluster
-    switch protocol
-    case 'LightDark'
-        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LightDark.mat');
-    case 'DarkLight'
-        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-DarkLight.mat');
-    end
-
-    % filter the raw data
-    filtered_data_table = filterDataTable(data.data_table, ...
-        'p', p, ...
-        'Modulation', modulation, ...
-        'Mode', 'both');
-
-    % use filenames and filecodes from the filtered data table
-    r.filenames     = filtered_data_table.filenames;
-    r.filecodes     = filtered_data_table.filecodes;
-
 end % function
