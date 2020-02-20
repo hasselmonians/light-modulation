@@ -2,12 +2,13 @@
 % gather the data afterwards
 % save the data and copy to cluster
 
-%% LightDark %%
+protocol = 'LightDark';
+% protocol = 'DarkLight';
 
 %% Instantiate the RatCatcher objects
 
 for ii = 4:-1:1
-    rc(ii) = getSecondPassRatCatcher('LightDark', ii);
+    rc(ii) = getSecondPassRatCatcher(protocol, ii);
     rc(ii) = rc(ii).validate;
 end
 
