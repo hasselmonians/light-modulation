@@ -24,8 +24,10 @@ for ii = 1:length(conditions)
       xlabel('time (s)')
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
+          'Light to Dark'; ...
           conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
+      set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
       % z-scored mean binned spike count (over all combined epochs & cells)
       fig_handles(2*ii) = figure;
@@ -33,8 +35,10 @@ for ii = 1:length(conditions)
       xlabel('time (s)')
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
-          conditions{ii}})
+      'Light to Dark'; ...
+      conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
+      set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
       %% DarkLight %%
 
@@ -49,8 +53,10 @@ for ii = 1:length(conditions)
       xlabel('time (s)')
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
-          conditions{ii}})
+      'Dark to Light'; ...
+      conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
+      set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
       % z-scored mean binned spike count (over all combined epochs & cells)
       fig_handles(2*ii) = figure;
@@ -58,6 +64,8 @@ for ii = 1:length(conditions)
       xlabel('time (s)')
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
+          'Dark to Light'; ...
           conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
+      set(gcf,'units','normalized','outerposition',[0 0 1 1])
 end
