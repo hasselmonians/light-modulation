@@ -18,7 +18,7 @@ for ii = 1:4
 
       %% LightDark %%
 
-      load(['~/code/grid-cell-spiking/data/data-Holger-LightDark2-' num2str(ii) '.mat']);
+      load(['~/code/light-modulation/data/data-Holger-LightDark2-' num2str(ii) '.mat']);
 
       [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table);
 
@@ -55,7 +55,7 @@ for ii = 1:4
 
       %% DarkLight %%
 
-      load(['~/code/grid-cell-spiking/data/data-Holger-DarkLight2-' num2str(ii) '.mat']);
+      load(['~/code/light-modulation/data/data-Holger-DarkLight2-' num2str(ii) '.mat']);
 
       [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table);
 

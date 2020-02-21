@@ -17,8 +17,8 @@ data_table = r.stitch(data_table);
 
 %% Save results
 
-save('~/code/grid-cell-spiking/data/data-Holger-LightDark2.mat', 'data_table', 'r');
-!cp ~/code/grid-cell-spiking/data/data-Holger-LightDark2.mat /mnt/hasselmogrp/ahoyland/data/holger/
+save('~/code/light-modulation/data/data-Holger-LightDark2.mat', 'data_table', 'r');
+!cp ~/code/light-modulation/data/data-Holger-LightDark2.mat /mnt/hasselmogrp/ahoyland/data/holger/
 
 %% DarkLight %%
 
@@ -39,5 +39,5 @@ data_table = r.stitch(data_table);
 
 %% Save results
 
-save('~/code/grid-cell-spiking/data/data-Holger-DarkLight2.mat', 'data_table', 'r');
-!cp ~/code/grid-cell-spiking/data/data-Holger-DarkLight2.mat /mnt/hasselmogrp/ahoyland/data/holger/
+save('~/code/light-modulation/data/data-Holger-DarkLight2.mat', 'data_table', 'r');
+!cp ~/code/light-modulation/data/data-Holger-DarkLight2.mat /mnt/hasselmogrp/ahoyland/data/holger/

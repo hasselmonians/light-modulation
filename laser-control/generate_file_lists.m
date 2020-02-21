@@ -2,7 +2,7 @@
 % from the laser control dataset
 
 % load the filenames list from Holger
-data = load('~/code/grid-cell-spiking/data/filenames_laserControl_sessions.mat');
+data = load('~/code/light-modulation/data/filenames_laserControl_sessions.mat');
 
 % rename the files to get the absolute paths
 prefix = '/mnt/hasselmogrp/hdannenb_1/UnitRecordingData';
@@ -17,4 +17,4 @@ end
 % wrangle the data
 [filenames, filecodes, file_missing] = RatCatcher.wrangle(unique_filenames, ...
     'Verbosity', true, ...
-    'SavePath', '~/code/grid-cell-spiking/data/laser-control');
+    'SavePath', '~/code/light-modulation/data/laser-control');

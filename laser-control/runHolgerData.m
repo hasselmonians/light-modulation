@@ -1,6 +1,6 @@
 r               = RatCatcher;
-r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/laser-control/cluster';
-r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/laser-control/cluster';
+r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
+r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
 r.protocol      = 'LaserControl';
 r.expID         = 'Holger';
 r.project       = 'hasselmogrp';

@@ -58,10 +58,10 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
         minDim = min(size(epoch_sets_1, 1), size(epoch_sets_2));
         epoch_sets_1 = epoch_sets_1(1:minDim, :);
         epoch_sets_2 = epoch_sets_2(1:minDim, :);
-        corelib.verb(options.Verbosity, 'grid-cell-spiking/getEpochs', 'epochs trimmed')
+        corelib.verb(options.Verbosity, 'light-modulation/getEpochs', 'epochs trimmed')
     else
         corelib.verb(options.Verbosity && all(size(epoch_sets_1) == size(epoch_sets_2)), ...
-        'grid-cell-spiking/getEpochs', ...
+        'light-modulation/getEpochs', ...
         'epoch sets are differently-sized')
         varargout{1} = [];
         return
@@ -71,10 +71,10 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
     if all(epoch_sets_2(:,1) >= epoch_sets_1(:, 2))
         % the epochs in epoch_set_1 come first
-        corelib.verb(options.Verbosity, 'grid-cell-spiking/getEpochs', 'epochs sets #1 comes first')
+        corelib.verb(options.Verbosity, 'light-modulation/getEpochs', 'epochs sets #1 comes first')
         epoch_sets = {epoch_sets_1, epoch_sets_2};
     elseif all(epoch_sets_2(:, 1) <= epoch_sets_1(:, 2))
-        corelib.verb(options.Verbosity, 'grid-cell-spiking/getEpochs', 'epochs sets #2 comes first')
+        corelib.verb(options.Verbosity, 'light-modulation/getEpochs', 'epochs sets #2 comes first')
         epoch_sets = {epoch_sets_2, epoch_sets_1};
     else
         error('something isn''t right with the epoch sets; are you sure they make sense causally?')
