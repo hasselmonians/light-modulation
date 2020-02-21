@@ -62,6 +62,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
         % whether to flip the order
         % viz. for the DarkLight to LightDark protocols
     case true
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'flipping epochs...')
         stitched_epochs_flipped = NaN(size(stitched_epochs));
         stitched_epochs_flipped(1:end-2, 1) = stitched_epochs(1:end-2, 3);
         stitched_epochs_flipped(1:end-2, 2) = stitched_epochs(1:end-2, 2);
