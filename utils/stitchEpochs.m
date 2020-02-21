@@ -2,9 +2,9 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     %% Description:
     %   Splices a cell array of epochs into a single n x 3 matrix,
-    %   where the first column contains the starts of the light times,
+    %   where the first column contains the starts of the first epoch start times,
     %   the second column contains the transition times,
-    %   and the third column contains the end of the dark times (in seconds).
+    %   and the third column contains the end of the second epoch stop times.
     %
     %% Arguments:
     %   epoch_sets: a 1x2 or 2x1 cell array of n x 2 matrices
@@ -12,6 +12,8 @@ function varargout = stitchEpochs(epoch_sets, varargin)
     %       for each experimental condition (e.g. light and dark)
     %   options: a struct of options,
     %       or as Name-Value pairs:
+    %       FlipOrder: logical scalar, whether to flip the order of the epoch sets,
+    %           results in an (n-2) x 3 matrix instead, default: false
     %       Verbosity: logical scalar, print textual output, default: false
     %
     %% Outputs:
@@ -35,6 +37,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     % instantiate options
     options = struct;
+    options.FlipOrder = false;
     options.Verbosity = false;
 
     if ~nargin & nargout
@@ -49,12 +52,21 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     %% Main
 
-    stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
-    stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
-    stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
-
-    %% Outputs
-
-    varargout{1} = stitched_epochs;
+    switch options.FlipOrder
+    case false
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'stitching epochs...')
+        stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
+        stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
+        stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
+    case true
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'flipping epochs...')
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'stitching epochs...')
+        stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
+        stitched_epochs(:, 1:2) = epoch_sets{2}(:, 1:2);
+        stitched_epochs(:, 3) = [epoch_sets{1}(2:end, 1); NaN];
+        varargout{1} = stitched_epochs(1:end-1, :);
+    case false
+        varargout{1} = stitched_epochs;
+    end
 
 end % function

@@ -2,7 +2,9 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
 
     %% Description:
     %   Generates a 1x2 cell array of epochs from two n x 2 matrices
-    %   containing start and stop times
+    %   containing start and stop times.
+    %   This function always orders epochs temporally,
+    %   so switching epoch_sets_1 and epoch_sets_2 shouldn't affect the output.
     %
     %% Arguments:
     %   epoch_sets_1 and _2: should be n x 2 matrices of start and stop times in seconds
@@ -61,6 +63,8 @@ function varargout = getEpochs(epoch_sets_1, epoch_sets_2, varargin)
         corelib.verb(options.Verbosity && all(size(epoch_sets_1) == size(epoch_sets_2)), ...
         'grid-cell-spiking/getEpochs', ...
         'epoch sets are differently-sized')
+        varargout{1} = [];
+        return
     end
 
     %% Determine which epoch set came first
