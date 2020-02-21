@@ -2,9 +2,9 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     %% Description:
     %   Splices a cell array of epochs into a single n x 3 matrix,
-    %   where the first column contains the starts of the light times,
+    %   where the first column contains the starts of the first epoch start times,
     %   the second column contains the transition times,
-    %   and the third column contains the end of the dark times (in seconds).
+    %   and the third column contains the end of the second epoch start times.
     %
     %% Arguments:
     %   epoch_sets: a 1x2 or 2x1 cell array of n x 2 matrices
@@ -12,6 +12,8 @@ function varargout = stitchEpochs(epoch_sets, varargin)
     %       for each experimental condition (e.g. light and dark)
     %   options: a struct of options,
     %       or as Name-Value pairs:
+    %       FlipOrder: logical scalar, whether to flip the order of the epoch sets,
+    %           results in an (n-2) x 3 matrix instead, default: false
     %       Verbosity: logical scalar, print textual output, default: false
     %
     %% Outputs:
@@ -35,6 +37,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     % instantiate options
     options = struct;
+    options.FlipOrder = false;
     options.Verbosity = false;
 
     if ~nargin & nargout
@@ -53,8 +56,19 @@ function varargout = stitchEpochs(epoch_sets, varargin)
     stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
     stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
 
-    %% Outputs
+    %% Post-Processing
 
-    varargout{1} = stitched_epochs;
+    switch options.FlipOrder
+        % whether to flip the order
+        % viz. for the DarkLight to LightDark protocols
+    case true
+        stitched_epochs_flipped = NaN(size(stitched_epochs));
+        stitched_epochs_flipped(1:end-2, 1) = stitched_epochs(1:end-2, 3);
+        stitched_epochs_flipped(1:end-2, 2) = stitched_epochs(1:end-2, 2);
+        stitched_epochs_flipped(1:end-2, 3) = stitched_epochs(3:end, 1);
+        varargout{1} = stitched_epochs_flipped(1:end-2, :);
+    case false
+        varargout{1} = stitched_epochs;
+    end
 
 end % function
