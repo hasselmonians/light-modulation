@@ -1,7 +1,7 @@
 %% Load the first-pass datasets for the two conditions
 
-data_lightdark = load('~/code/grid-cell-spiking/data/data-Holger-LightDark.mat');
-data_darklight = load('~/code/grid-cell-spiking/data/data-Holger-DarkLight.mat');
+data_lightdark = load('~/code/light-modulation/data/data-Holger-LightDark.mat');
+data_darklight = load('~/code/light-modulation/data/data-Holger-DarkLight.mat');
 
 %% Are the two data sets actually different?
 
@@ -14,8 +14,8 @@ height(differences) / height(data_lightdark.data_table) * 100
 
 %% Load the second-pass datasets for the two conditions
 
-data_lightdark2 = load('~/code/grid-cell-spiking/data/data-Holger-LightDark2-1.mat');
-data_darklight2 = load('~/code/grid-cell-spiking/data/data-Holger-DarkLight2-1.mat');
+data_lightdark2 = load('~/code/light-modulation/data/data-Holger-LightDark2-1.mat');
+data_darklight2 = load('~/code/light-modulation/data/data-Holger-DarkLight2-1.mat');
 
 %% Are the two data sets actually different?
 

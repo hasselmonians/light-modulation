@@ -1,4 +1,4 @@
-# grid-cell-spiking
+# light-modulation
 understanding how and when grid cells spike
 
 Spikes are treated as events with three coordinates

@@ -7,7 +7,7 @@ function batchFunction(location, batchname, outfile, test)
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/RatCatcher'))
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/srinivas.gs_mtools'))
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/CMBHOME'))
-      addpath(genpath('/projectnb/hasselmogrp/ahoyland/grid-cell-spiking'))
+      addpath(genpath('/projectnb/hasselmogrp/ahoyland/light-modulation'))
     end
 
     %% Load the raw data

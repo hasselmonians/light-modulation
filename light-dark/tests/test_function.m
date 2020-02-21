@@ -4,7 +4,7 @@ function [lightONs, lightOFFs] = test_function(location, batchname, outfile, tes
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/RatCatcher'))
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/srinivas.gs_mtools'))
       addpath(genpath('/projectnb/hasselmogrp/ahoyland/CMBHOME'))
-      addpath(genpath('/projectnb/hasselmogrp/ahoyland/grid-cell-spiking'))
+      addpath(genpath('/projectnb/hasselmogrp/ahoyland/light-modulation'))
     end
 
     %% Load the raw data

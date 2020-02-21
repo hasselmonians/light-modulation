@@ -4,7 +4,7 @@
 %% Load the data table
 % requires a 'spike_counts' variable of padded spike counts
 
-load('~/code/grid-cell-spiking/data/data-Holger-LightDark2.mat');
+load('~/code/light-modulation/data/data-Holger-LightDark2.mat');
 
 %% Collect the mean binned spike counts
 

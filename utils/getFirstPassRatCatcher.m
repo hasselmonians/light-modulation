@@ -29,15 +29,15 @@ function r = getFirstPassRatCatcher(protocol)
 
     switch protocol
     case 'LightDark'
-        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark';
-        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-LightDark';
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-LightDark';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-LightDark';
         r.protocol      = 'LightDark';
         r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
         r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
     case 'DarkLight'
         r               = RatCatcher;
-        r.localpath     = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight';
-        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster-DarkLight';
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-DarkLight';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-DarkLight';
         r.protocol      = 'DarkLight';
         r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
         r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';

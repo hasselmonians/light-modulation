@@ -28,7 +28,7 @@ for ii = 1:4
     r = rc(ii);
     data_table = LightDark2.gather(r);
     data_table = r.stitch(data_table);
-    save_filepath = '~/code/grid-cell-spiking/data/data-';
+    save_filepath = '~/code/light-modulation/data/data-';
     save([save_filepath, r.batchname], 'data_table', 'r');
 end
 
@@ -36,4 +36,4 @@ return
 
 %% Copy to cluster
 
-!cp ~/code/grid-cell-spiking/data/data* /mnt/hasselmogrp/ahoyland/data/holger/
+!cp ~/code/light-modulation/data/data* /mnt/hasselmogrp/ahoyland/data/holger/

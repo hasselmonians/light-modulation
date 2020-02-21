@@ -1,8 +1,8 @@
 %% test_batchfunction.m
-% 1. Run this script from ~/code/grid-cell-spiking/light-dark/tests/
+% 1. Run this script from ~/code/light-modulation/light-dark/tests/
 % 2. Have the SCC mounted at /mnt/hasselmogrp
 
-location = '/mnt/hasselmogrp/ahoyland/grid-cell-spiking/light-dark/cluster/';
+location = '/mnt/hasselmogrp/ahoyland/light-modulation/light-dark/cluster/';
 batchname = 'Holger-LightDark';
 outfile = '../cluster/outfile-Holger-LightDark';
 test = true;
