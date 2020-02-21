@@ -54,7 +54,7 @@ function batchFunction(location, batchname, outfile, test)
                 'Verbosity', true);
 
             % acquire the start, transition, and stop times
-            [epoch_times] = stitchEpochs(epoch_sets);
+            [epoch_times] = stitchEpochs(epoch_sets, 'FlipOrder', true);
 
             %% Acquire the overlaid epochs
 
