@@ -26,7 +26,7 @@ zscored_spike_counts = zscoreOverNaNs(padded_mean_binned_spike_counts);
 % create a timestamp vector
 binSize = 5; % seconds
 nBins = size(zscored_spike_counts, 2);
-zscored_timestamps = binSize * (colon(0, nBins-1) - nBins/2);
+zscored_timestamps = binSize * (colon(0, nBins-1) + 1 - nBins/2);
 
 %% Visualize
 
