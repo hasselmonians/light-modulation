@@ -52,22 +52,19 @@ function varargout = stitchEpochs(epoch_sets, varargin)
 
     %% Main
 
-    stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
-    stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
-    stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
-
-    %% Post-Processing
-
     switch options.FlipOrder
-        % whether to flip the order
-        % viz. for the DarkLight to LightDark protocols
+    case false
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'stitching epochs...')
+        stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
+        stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
+        stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
     case true
         corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'flipping epochs...')
-        stitched_epochs_flipped = NaN(size(stitched_epochs));
-        stitched_epochs_flipped(1:end-2, 1) = stitched_epochs(1:end-2, 3);
-        stitched_epochs_flipped(1:end-2, 2) = stitched_epochs(2:end-1, 2);
-        stitched_epochs_flipped(1:end-2, 3) = stitched_epochs(3:end, 1);
-        varargout{1} = stitched_epochs_flipped(1:end-2, :);
+        corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'stitching epochs...')
+        stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
+        stitched_epochs(:, 1:2) = epoch_sets{2}(:, 1:2);
+        stitched_epochs(:, 3) = [epoch_sets{1}(2:end, 1); NaN];
+        varargout{1} = stitched_epochs(1:end-1, :);
     case false
         varargout{1} = stitched_epochs;
     end
