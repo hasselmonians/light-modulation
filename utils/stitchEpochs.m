@@ -4,7 +4,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
     %   Splices a cell array of epochs into a single n x 3 matrix,
     %   where the first column contains the starts of the first epoch start times,
     %   the second column contains the transition times,
-    %   and the third column contains the end of the second epoch start times.
+    %   and the third column contains the end of the second epoch stop times.
     %
     %% Arguments:
     %   epoch_sets: a 1x2 or 2x1 cell array of n x 2 matrices
@@ -65,7 +65,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
         corelib.verb(options.Verbosity, 'grid-cell-spiking/stitchEpochs', 'flipping epochs...')
         stitched_epochs_flipped = NaN(size(stitched_epochs));
         stitched_epochs_flipped(1:end-2, 1) = stitched_epochs(1:end-2, 3);
-        stitched_epochs_flipped(1:end-2, 2) = stitched_epochs(1:end-2, 2);
+        stitched_epochs_flipped(1:end-2, 2) = stitched_epochs(2:end-1, 2);
         stitched_epochs_flipped(1:end-2, 3) = stitched_epochs(3:end, 1);
         varargout{1} = stitched_epochs_flipped(1:end-2, :);
     case false
