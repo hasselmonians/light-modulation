@@ -1,3 +1,4 @@
 cluster/*
 data/*
-light-dark/cluster/*
+light-dark/cluster*/*
+laser-control/cluster*/*
