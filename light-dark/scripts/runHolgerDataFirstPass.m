@@ -1,4 +1,5 @@
 protocol = 'LightDark';
+% protocol = 'DarkLight';
 
 r = getFirstPassRatCatcher(protocol);
 
