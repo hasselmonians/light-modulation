@@ -33,16 +33,16 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     switch condition_number
     case 1
         p = 0.01;
-        modulation = 'positive';
+        modulation = 'positive'; % positively modulated by darkness
     case 2
         p = 0.05;
-        modulation = 'positive';
+        modulation = 'positive'; % positively modulated by darkness
     case 3
         p = 0.01;
-        modulation = 'negative';
+        modulation = 'negative'; % negatively modulated by darkness
     case 4
         p = 0.05;
-        modulation = 'negative';
+        modulation = 'negative'; % negatively modulated by darkness
     otherwise
         error('condition_number should be an integer between 1 and 4')
     end
