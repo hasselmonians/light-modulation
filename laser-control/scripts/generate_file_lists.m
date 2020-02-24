@@ -19,4 +19,4 @@ end
     'Verbosity', true, ...
     'SavePath', '~/code/light-modulation/data/laser-control');
 
-% ! cp ~/code/light-modulation/data/laser-control/* /mnt/hasselmogrp/ahoyland/data/holger/laser-control/*
+% ! cp ~/code/light-modulation/data/laser-control/* /mnt/hasselmogrp/ahoyland/data/holger/laser-control
