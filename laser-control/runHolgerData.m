@@ -9,8 +9,8 @@ r.mode          = 'singular';
 
 return
 
-% r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
-% r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
+r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
+r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
 
 return
 
