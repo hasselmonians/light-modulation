@@ -58,6 +58,7 @@ function varargout = stitchEpochs(epoch_sets, varargin)
         stitched_epochs = NaN(size(epoch_sets{1}, 1), 3);
         stitched_epochs(:, 1:2) = epoch_sets{1}(:, 1:2);
         stitched_epochs(:, 3) = epoch_sets{2}(:, 2);
+        varargout{1} = stitched_epochs;
     case true
         corelib.verb(options.Verbosity, 'light-modulation/stitchEpochs', 'flipping epochs...')
         corelib.verb(options.Verbosity, 'light-modulation/stitchEpochs', 'stitching epochs...')
@@ -65,8 +66,6 @@ function varargout = stitchEpochs(epoch_sets, varargin)
         stitched_epochs(:, 1:2) = epoch_sets{2}(:, 1:2);
         stitched_epochs(:, 3) = [epoch_sets{1}(2:end, 1); NaN];
         varargout{1} = stitched_epochs(1:end-1, :);
-    case false
-        varargout{1} = stitched_epochs;
     end
 
 end % function
