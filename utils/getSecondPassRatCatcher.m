@@ -23,7 +23,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     %% Examples:
     %   r = getSecondPassRatCatcher(protocol, condition_number);
     %
-    % See Also: getFirstPassRatCatcher
+    % See Also: getFirstPassRatCatcher, filterDataTable
 
     %% Preamble
 
