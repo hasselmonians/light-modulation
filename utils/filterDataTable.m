@@ -10,8 +10,10 @@ function varargout = filterDataTable(data_table, varargin)
     %       struct argument; or as Name-Value pairs
     %       p: numerical scalar, the p-value threshold for significance, default: 0.05
     %       Modulation: character vector, if 'positive', finds only positively-modulated cells,
+    %           cells which fire more in darkness/unstimulated conditions.
     %           if 'negative', finds only negatively-modulated cells,
-    %           if 'both', finds all modulated cells, default: 'positive'
+    %           cells which fire more in light/stimulated conditions.
+    %           if 'both', finds all modulated cells, default: 'negative'
     %       Mode: character vector, either 'l2d' (light to dark conditions),
     %           or 'd2l' (dark to light) or 'both', default: 'both'
     %       Verbosity: logical scalar, whether to print textual output, default: false
@@ -32,7 +34,7 @@ function varargout = filterDataTable(data_table, varargin)
 
     options = struct;
     options.p = 0.05;
-    options.Modulation = 'positive';
+    options.Modulation = 'negative';
     options.Mode = 'both';
     options.Verbosity = false;
 
@@ -60,18 +62,18 @@ function varargout = filterDataTable(data_table, varargin)
     switch options.Mode
     case {'l2d', 'd2l'}
         switch options.Modulation
-        case 'positive'
+        case 'negative' % negatively modulated by darkness
             keep_these = data_table.([options.Mode '_p']) < options.p & data_table.([options.Mode '_tstat']) > 0;
-        case 'negative'
+        case 'positive' % positively modulated by darkness
             keep_these = data_table.([options.Mode '_p']) < options.p & data_table.([options.Mode '_tstat']) < 0;
         case 'both'
             keep_these = data_table.p < options.p;
         end
     case 'both'
         switch options.Modulation
-        case 'positive'
+        case 'negative' % negatively modulated by darkness
             keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p) & (data_table.l2d_tstat > 0 & data_table.d2l_tstat > 0);
-        case 'negative'
+        case 'positive' % positively modulated by darkness
             keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p) & (data_table.l2d_tstat < 0 & data_table.d2l_tstat < 0);
         case 'both'
             keep_these = (data_table.l2d_p < options.p & data_table.d2l_p < options.p);
