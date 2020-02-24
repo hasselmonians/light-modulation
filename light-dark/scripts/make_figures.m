@@ -31,6 +31,7 @@ for ii = 1:4
       text(-abs(zscored_timestamps(1)/2), 3, 'Light');
       text(abs(zscored_timestamps(1)/2), 3, 'Dark');
       xlabel('time (s)')
+      xticks(zscored_timestamps(1):20:zscored_timestamps(end));
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
           'Light to Dark'; ...
@@ -68,6 +69,7 @@ for ii = 1:4
       text(-abs(zscored_timestamps(1)/2), 3, 'Dark');
       text(abs(zscored_timestamps(1)/2), 3, 'Light');
       xlabel('time (s)')
+      xticks(zscored_timestamps(1):20:zscored_timestamps(end));
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
           'Dark to Light'; ...
