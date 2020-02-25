@@ -4,6 +4,12 @@
 % load the filenames list from Holger
 data = load('~/code/light-modulation/data/filenames_laserControl_sessions.mat');
 
+% fix broken filepaths
+data.filenames = [data.filenames;
+    'ChATControl_3/170228_s2_ls_control.mat'; ...
+    'ChATControl_3/170303_s1_ls_control.mat'; ...
+    'ChATControl_5/170317_s1_ls_control.mat'];
+
 % rename the files to get the absolute paths
 prefix = '/mnt/hasselmogrp/hdannenb_1/UnitRecordingData';
 unique_filenames = cell(length(data.filenames), 1);
