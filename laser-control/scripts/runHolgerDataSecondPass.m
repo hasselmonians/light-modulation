@@ -3,6 +3,7 @@
 % save the data and copy to cluster
 
 protocol = 'LaserControl';
+% protocol = 'ControlLaser';
 
 %% Instantiate the RatCatcher objects
 
