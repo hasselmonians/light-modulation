@@ -10,7 +10,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     % There are hard-coded paths in this function.
     %
     %% Arguments:
-    %   protocol: character vector, any one of: 'LightDark' or 'DarkLight' or 'LaserControl'
+    %   protocol: character vector, any one of: 'LightDark' or 'DarkLight' or 'LaserControl' or 'ControlLaser'
     %   condition_number: numerical scalar, an integer 1-4
     %       1: p = 0.01, modulation = positive
     %       2: p = 0.05, modulation = positive
@@ -27,8 +27,8 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
 
     %% Preamble
 
-    assert(any(strcmp(protocol, {'LightDark', 'DarkLight', 'LaserControl'})), ...
-        'protocol must be ''DarkLight'' or ''LightDark'' or ''LaserControl''')
+    assert(any(strcmp(protocol, {'LightDark', 'DarkLight', 'LaserControl', 'ControlLaser'})), ...
+        'protocol must be ''DarkLight'' or ''LightDark'' or ''LaserControl'' or ''ControlLaser''')
 
     switch condition_number
     case 1
@@ -64,6 +64,10 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl2';
         r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl2';
         r.protocol      = 'LaserControl2';
+    case 'ControlLaser'
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser2';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser2';
+        r.protocol      = 'ControlLaser2';
     end
 
     % define other properties that don't depend on the protocol
@@ -85,6 +89,8 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-DarkLight.mat');
     case 'LaserControl'
         data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LaserControl.mat');
+    case 'ControlLaser'
+        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-ControlLaser.mat');
     end
 
     % filter the raw data
