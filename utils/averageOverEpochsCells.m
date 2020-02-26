@@ -42,6 +42,6 @@ function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(dat
 
     % create a timestamp vector
     nBins = size(zscored_spike_counts, 2);
-    zscored_timestamps = binSize * (colon(1, nBins) - (nBins + 1) / 2);
+    zscored_timestamps = binSize * (colon(1, nBins) - (nBins - 1) / 2);
 
 end % function
