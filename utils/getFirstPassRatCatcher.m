@@ -8,7 +8,7 @@ function r = getFirstPassRatCatcher(protocol)
     % There are hard-coded paths in this function.
     %
     %% Arguments:
-    %   protocol: character vector, either 'LightDark' or 'DarkLight'
+    %   protocol: character vector, either 'LightDark' or 'DarkLight' or 'LaserControl' or 'ControlLaser'
     %
     %% Outputs:
     %   r: a RatCatcher object
@@ -20,8 +20,8 @@ function r = getFirstPassRatCatcher(protocol)
 
     %% Preamble
 
-    assert(any(strcmp(protocol, {'LightDark', 'DarkLight'})), ...
-        'protocol must be either ''DarkLight'' or ''LightDark''')
+    assert(any(strcmp(protocol, {'LightDark', 'DarkLight', 'LaserControl', 'ControlLaser'})), ...
+        'protocol must be either ''DarkLight'' or ''LightDark'' or ''LaserControl'' or ''ControlLaser''')
 
     %% Instantiate the RatCatcher object
 
@@ -41,6 +41,20 @@ function r = getFirstPassRatCatcher(protocol)
         r.protocol      = 'DarkLight';
         r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filenames.txt';
         r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/light-dark/filecodes.csv';
+    case 'LaserControl'
+        r               = RatCatcher;
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl';
+        r.protocol      = 'LaserControl';
+        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
+        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
+    case 'ControlLaser'
+        r               = RatCatcher;
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser';
+        r.protocol      = 'ControlLaser';
+        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
+        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
     end
 
     % define other properties that don't depend on the protocol
