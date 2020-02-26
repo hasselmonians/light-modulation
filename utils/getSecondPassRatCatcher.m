@@ -64,14 +64,10 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl2';
         r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl2';
         r.protocol      = 'LaserControl2';
-        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
-        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
     case 'ControlLaser'
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser2';
         r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-ControlLaser2';
         r.protocol      = 'ControlLaser2';
-        r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
-        r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
     end
 
     % define other properties that don't depend on the protocol
