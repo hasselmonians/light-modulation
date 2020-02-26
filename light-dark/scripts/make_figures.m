@@ -12,77 +12,74 @@ for ii = 1:4
 
       %% LightDark %%
 
+      % load the raw data
+      % you need to change this path
       load(['~/code/light-modulation/data/data-Holger-LightDark2-' num2str(ii) '.mat']);
 
+      % acquire z-score the raw data
       [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table);
 
+      % acquire the mean and standard deviation over all cells
       [vec_mean, vec_std] = averageOverNaNs(zscored_spike_counts);
 
+      % create a figure
       fig_handles(2*ii-1) = figure;
       hold on;
+
+      % plot the mean with a standard deviation shaded error
       plotlib.shadedErrorBar(zscored_timestamps, vec_mean, vec_std);
+
+      % plot a dashed line at x = 0
       plot([0, 0], [-3, 3], '--k')
+
+      % add text labels
       text(-abs(zscored_timestamps(1)/2), 3, 'Light');
       text(abs(zscored_timestamps(1)/2), 3, 'Dark');
+
+      % axis labels and titles
       xlabel('time (s)')
-      xticks(zscored_timestamps(1):5:zscored_timestamps(end));
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
-          'Light to Dark'; ...
-          conditions{ii}})
-      figlib.pretty('PlotBuffer', 0.1);
-      set(gcf,'units','normalized','outerposition',[0 0 1 1])
+      'Light to Dark'; ...
+      conditions{ii}})
 
-      % % z-scored mean binned spike count (over all combined epochs & cells)
-      % fig_handles(2*ii) = figure;
-      % hold on;
-      % plot(zscored_timestamps, zscored_spike_counts);
-      % plot([0, 0], [-3, 3], '--k')
-      % text(-abs(zscored_timestamps(1)/2), 3, 'Light');
-      % text(abs(zscored_timestamps(1)/2), 3, 'Dark');
-      % xlabel('time (s)')
-      % ylabel('z-scored firing rate (a.u.)')
-      % title({'z-scored mean binned spike counts (over all cells)'; ...
-      %     'Light to Dark'; ...
-      %     conditions{ii}})
-      % figlib.pretty('PlotBuffer', 0.1);
-      % set(gcf,'units','normalized','outerposition',[0 0 1 1])
+      % post-processing
+      figlib.pretty('PlotBuffer', 0.1, 'XMinorTicks', true);
+      set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
       %% DarkLight %%
 
       load(['~/code/light-modulation/data/data-Holger-DarkLight2-' num2str(ii) '.mat']);
 
+      % acquire z-score the raw data
       [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table);
 
+      % acquire the mean and standard deviation over all cells
       [vec_mean, vec_std] = averageOverNaNs(zscored_spike_counts);
 
+      % create a figure
       fig_handles(2*ii-1) = figure;
       hold on;
+
+      % plot the mean with a standard deviation shaded error
       plotlib.shadedErrorBar(zscored_timestamps, vec_mean, vec_std);
+
+      % plot a dashed line at x = 0
       plot([0, 0], [-3, 3], '--k')
-      text(-abs(zscored_timestamps(1)/2), 3, 'Dark');
-      text(abs(zscored_timestamps(1)/2), 3, 'Light');
+
+      % add text labels
+      text(-abs(zscored_timestamps(1)/2), 3, 'Light');
+      text(abs(zscored_timestamps(1)/2), 3, 'Dark');
+
+      % axis labels and titles
       xlabel('time (s)')
-      xticks(zscored_timestamps(1):5:zscored_timestamps(end));
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
-          'Dark to Light'; ...
-          conditions{ii}})
-      figlib.pretty('PlotBuffer', 0.1);
+      'Light to Dark'; ...
+      conditions{ii}})
+
+      % post-processing
+      figlib.pretty('PlotBuffer', 0.1, 'XMinorTicks', true);
       set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
-      % % z-scored mean binned spike count (over all combined epochs & cells)
-      % fig_handles(2*ii) = figure;
-      % hold on;
-      % plot(zscored_timestamps, zscored_spike_counts);
-      % plot([0, 0], [-3, 3], '--k')
-      % text(-abs(zscored_timestamps(1)/2), 3, 'Dark');
-      % text(abs(zscored_timestamps(1)/2), 3, 'Light');
-      % xlabel('time (s)')
-      % ylabel('z-scored firing rate (a.u.)')
-      % title({'z-scored mean binned spike counts (over all cells)'; ...
-      %     'Dark to Light'; ...
-      %     conditions{ii}})
-      % figlib.pretty('PlotBuffer', 0.1);
-      % set(gcf,'units','normalized','outerposition',[0 0 1 1])
 end
