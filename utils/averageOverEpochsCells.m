@@ -1,4 +1,4 @@
-function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table, binSize)
+function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(data_table, binWidth)
 
     %% Description:
     %   Take the concatenated binned spike counts (concatenated over paired epochs)
@@ -7,7 +7,7 @@ function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(dat
     %
     %% Arguments:
     %   data_table: a data table with the spike_counts variable
-    %   binSize: numerical scalar, width of the spike bins in seconds, default: 5 seconds
+    %   binWidth: numerical scalar, width of the spike bins in seconds, default: 5 seconds
     %
     %% Outputs:
     %   zscored_spike_counts: z-zscored binned spike counts averaged over all epochs & cells
@@ -19,8 +19,8 @@ function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(dat
 
     %% Preamble
 
-    if ~exist('binSize', 'var')
-        binSize = 5; % seconds
+    if ~exist('binWidth', 'var')
+        binWidth = 5; % seconds
     end
 
     %% Collect the binned spike counts averaged over epochs for each cell
@@ -42,6 +42,6 @@ function [zscored_spike_counts, zscored_timestamps] = averageOverEpochsCells(dat
 
     % create a timestamp vector
     nBins = size(zscored_spike_counts, 2);
-    zscored_timestamps = binSize * (colon(1, nBins) - (nBins - 1) / 2);
+    zscored_timestamps = binWidth * ((1:nBins) - (nBins + 1)/2);
 
 end % function
