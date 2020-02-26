@@ -62,7 +62,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         r.protocol      = 'DarkLight2';
     case 'LaserControl'
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LightDark2';
-        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LightDark2';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster-LaserControl2';
         r.protocol      = 'LaserControl2';
     end
 
