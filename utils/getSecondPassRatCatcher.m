@@ -63,7 +63,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     case 'LaserControl'
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
         r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
-        r.protocol      = 'LaserControl';
+        r.protocol      = 'LaserControl2';
     end
 
     % define other properties that don't depend on the protocol
