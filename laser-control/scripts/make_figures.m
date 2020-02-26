@@ -8,7 +8,7 @@ conditions = { ...
       '3: p = 0.01, modulation = negative', ...
       '4: p = 0.05, modulation = negative'};
 
-for ii = 1:4
+for ii = 2:4
 
       %% LaserControl %%
 
