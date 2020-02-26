@@ -1,18 +1,12 @@
 %% Make figures for LightDark2 protocol
 % run on all 4 conditions.
 
-% conditions
-conditions_LightDark = { ...
+% conditions for filtering the first-pass results
+conditions = { ...
       '1: p = 0.01, modulation = positive', ...
       '2: p = 0.05, modulation = positive', ...
       '3: p = 0.01, modulation = negative', ...
       '4: p = 0.05, modulation = negative'};
-
-conditions_DarkLight = { ...
-    '1: p = 0.01, modulation = positive', ...
-    '2: p = 0.05, modulation = positive', ...
-    '3: p = 0.01, modulation = negative', ...
-    '4: p = 0.05, modulation = negative'};
 
 for ii = 1:4
 
@@ -35,7 +29,7 @@ for ii = 1:4
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
           'Light to Dark'; ...
-          conditions_LightDark{ii}})
+          conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
       set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
@@ -50,7 +44,7 @@ for ii = 1:4
       % ylabel('z-scored firing rate (a.u.)')
       % title({'z-scored mean binned spike counts (over all cells)'; ...
       %     'Light to Dark'; ...
-      %     conditions_LightDark{ii}})
+      %     conditions{ii}})
       % figlib.pretty('PlotBuffer', 0.1);
       % set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
@@ -73,7 +67,7 @@ for ii = 1:4
       ylabel('z-scored firing rate (a.u.)')
       title({'z-scored mean binned spike counts (over all cells)'; ...
           'Dark to Light'; ...
-          conditions_DarkLight{ii}})
+          conditions{ii}})
       figlib.pretty('PlotBuffer', 0.1);
       set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
@@ -88,7 +82,7 @@ for ii = 1:4
       % ylabel('z-scored firing rate (a.u.)')
       % title({'z-scored mean binned spike counts (over all cells)'; ...
       %     'Dark to Light'; ...
-      %     conditions_DarkLight{ii}})
+      %     conditions{ii}})
       % figlib.pretty('PlotBuffer', 0.1);
       % set(gcf,'units','normalized','outerposition',[0 0 1 1])
 end
