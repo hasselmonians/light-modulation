@@ -84,7 +84,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     case 'DarkLight'
         data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-DarkLight.mat');
     case 'LaserControl'
-        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LaserControl.mat')
+        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LaserControl.mat');
     end
 
     % filter the raw data
