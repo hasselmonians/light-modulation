@@ -9,7 +9,7 @@ protocol = 'LaserControl';
 
 for ii = 4:-1:1
     rc(ii) = getSecondPassRatCatcher(protocol, ii);
-    rc(ii) = rc(ii).validate;
+    % rc(ii) = rc(ii).validate;
 end
 
 return
