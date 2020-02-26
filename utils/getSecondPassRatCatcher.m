@@ -10,7 +10,7 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
     % There are hard-coded paths in this function.
     %
     %% Arguments:
-    %   protocol: character vector, either 'LightDark' or 'DarkLight'
+    %   protocol: character vector, any one of: 'LightDark' or 'DarkLight' or 'LaserControl'
     %   condition_number: numerical scalar, an integer 1-4
     %       1: p = 0.01, modulation = positive
     %       2: p = 0.05, modulation = positive
@@ -27,8 +27,8 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
 
     %% Preamble
 
-    assert(any(strcmp(protocol, {'LightDark', 'DarkLight'})), ...
-        'protocol must be either ''DarkLight'' or ''LightDark''')
+    assert(any(strcmp(protocol, {'LightDark', 'DarkLight', 'LaserControl'})), ...
+        'protocol must be ''DarkLight'' or ''LightDark'' or ''LaserControl''')
 
     switch condition_number
     case 1
@@ -60,6 +60,10 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-DarkLight2';
         r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/light-dark/cluster-DarkLight2';
         r.protocol      = 'DarkLight2';
+    case 'LaserControl'
+        r.localpath     = '/mnt/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
+        r.remotepath    = '/projectnb/hasselmogrp/ahoyland/light-modulation/laser-control/cluster';
+        r.protocol      = 'LaserControl';
     end
 
     % define other properties that don't depend on the protocol
@@ -79,6 +83,8 @@ function r = getSecondPassRatCatcher(protocol, condition_number)
         data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LightDark.mat');
     case 'DarkLight'
         data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-DarkLight.mat');
+    case 'LaserControl'
+        data = load('/mnt/hasselmogrp/ahoyland/data/holger/data-Holger-LaserControl.mat')
     end
 
     % filter the raw data
