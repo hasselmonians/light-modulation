@@ -7,8 +7,6 @@ r.project       = 'hasselmogrp';
 r.verbose       = true;
 r.mode          = 'singular';
 
-return
-
 r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
 r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
 
