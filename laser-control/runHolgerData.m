@@ -10,6 +10,8 @@ r.mode          = 'singular';
 r.filenames     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filenames.txt';
 r.filecodes     = '/mnt/hasselmogrp/ahoyland/data/holger/laser-control/filecodes.csv';
 
+r = r.validate;
+
 return
 
 r.batchify
