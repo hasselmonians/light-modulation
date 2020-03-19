@@ -1,5 +1,12 @@
 # Light/Dark Modulation
 
+This software package identifies firing rate modulation between two conditions.
+It was used for:
+
+*Effects of visual inputs on neural dynamics for coding of location and running speed in medial entorhinal cortex*
+by Holger Dannenberg, Hallie Lazaro, Pranav Nambiar, Alec Hoyland, and Michael E. Hasselmo
+(2020, in review at *eLife*).
+
 #### The experiment
 
 A mouse freely explores a 1-meter-square arena in conditions of normal light
@@ -9,7 +16,7 @@ are also recorded.
 
 #### The goal
 
-Statistically and graphically analysis whether cells are modulated by illumination condition.
+Statistically and graphically analyze whether cells are modulated by illumination condition.
 
 This package assumes that the data exist as `CMBHOME.Session` objects
 (see [CMBHOME](https://github.com/hasselmonians/CMBHOME)).
@@ -154,4 +161,5 @@ each cell's binned spike count averaged over epochs is z-scored first.
 
 ## Optogenetic Modulation
 
-work-in-progress
+Optogenetic modulation works exactly the same was as the light/dark modulation.
+The scripts and classes are contained within `laser-control/`.
