@@ -7,6 +7,8 @@ It was used for:
 by Holger Dannenberg, Hallie Lazaro, Pranav Nambiar, Alec Hoyland, and Michael E. Hasselmo
 (2020, in review at *eLife*).
 
+https://www.biorxiv.org/content/10.1101/2020.04.06.027466v1
+
 #### The experiment
 
 A mouse freely explores a 1-meter-square arena in conditions of normal light
