@@ -3,6 +3,7 @@
 #$ -P hasselmogrp
 #$ -pe omp 8
 #$ -N head-direction
+#$ -e err
 
 module load matlab
 
