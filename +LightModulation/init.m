@@ -16,6 +16,7 @@ function init(isCluster)
         addpath /projectnb/hasselmogrp/ahoyland/light-modulation/head-direction
         addpath /projectnb/hasselmogrp/ahoyland/light-modulation/utils
         addpath /projectnb/hasselmogrp/ahoyland/light-modulation/scripts
+	addpath /projectnb/hasselmogrp/ahoyland/circstat-matlab
         addpath /projectnb/hasselmogrp/ahoyland/RatCatcher
         addpath /projectnb/hasselmogrp/ahoyland/RatCatcher/scripts
         addpath /projectnb/hasselmogrp/ahoyland/CMBHOME
