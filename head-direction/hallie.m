@@ -33,7 +33,14 @@ root.cel = filecode(1, :);
 % set the epochs where the light is on
 root.epoch = lightON;
 
+% directional tuning
 [headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
+
+% mean resultant vector length
 headDir.meanResultantVectorLength = circ_r(angleRad,headdirTuning);
+
+% computing the mean angle
 headDir.meanAngle = circ_mean(angleRad,headdirTuning);
+
+% Rayleigh test
 [headDir.pValueRayleighTest, headDir.zStatRayleighTest]=circ_rtest(angleRad,headdirTuning);
