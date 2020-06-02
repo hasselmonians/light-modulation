@@ -44,7 +44,7 @@ for ii = 1:length(filenames)
     root.epoch = lightON;
 
     % directional tuning
-    [headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
+    [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
 
     % convert from degrees to radians
     angleRad = pi / 180 * angleDeg;
