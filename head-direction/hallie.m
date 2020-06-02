@@ -13,60 +13,68 @@
 % end
 % end
 
-%% Load the filename and filecode data
+function data_table = hallie(epochs, save_file_name)
 
-load('/projectnb/hasselmogrp/ahoyland/data/holger/light-dark/data-Holger-LightDark.mat')
+    %% Arguments:
+    %   epochs: a matrix of epoch start times and end times
+    %   save_file_name: full path to where the data table should be saved
 
-% get the filenames and filecodes
-filenames = data_table.filenames;
-filecodes = data_table.filecodes;
+    %% Load the filename and filecode data
 
-%% Instantiate outputs
+    load('/projectnb/hasselmogrp/ahoyland/data/holger/light-dark/data-Holger-LightDark.mat')
 
-mean_resultant_vector_length    = zeros(length(filenames), 1);
-mean_angle                      = zeros(length(filenames), 1);
-p_value                         = zeros(length(filenames), 1);
-z_statistic                     = zeros(length(filenames), 1);
+    % get the filenames and filecodes
+    filenames = data_table.filenames;
+    filecodes = data_table.filecodes;
 
-%% Load one of the CMBHOME files
+    %% Instantiate outputs
 
-% loads a CMBHOME.Session object named "root"
-% loads a numerical matrix called "lightON"
+    mean_resultant_vector_length    = zeros(length(filenames), 1);
+    mean_angle                      = zeros(length(filenames), 1);
+    p_value                         = zeros(length(filenames), 1);
+    z_statistic                     = zeros(length(filenames), 1);
 
-for ii = 1:length(filenames)
+    %% Load one of the CMBHOME files
 
-    load(filenames{ii})
+    % loads a CMBHOME.Session object named "root"
+    % loads a numerical matrix called "lightON"
 
-    % set the cell number
-    root.cel = filecodes(ii, :);
+    for ii = 1:length(filenames)
 
-    % set the epochs where the light is on
-    root.epoch = lightON;
+        load(filenames{ii})
 
-    % directional tuning
-    [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
+        % set the cell number
+        root.cel = filecodes(ii, :);
 
-    % convert from degrees to radians
-    angleRad = pi / 180 * angleDeg;
+        % set the epochs where the light is on
+        root.epoch = epochs;
 
-    % mean resultant vector length
-    mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
+        % directional tuning
+        [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
 
-    % computing the mean angle
-    mean_angle(ii) = circ_mean(angleRad, headdirTuning);
+        % convert from degrees to radians
+        angleRad = pi / 180 * angleDeg;
 
-    % Rayleigh test
-    [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
+        % mean resultant vector length
+        mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
+
+        % computing the mean angle
+        mean_angle(ii) = circ_mean(angleRad, headdirTuning);
+
+        % Rayleigh test
+        [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
+
+    end
+
+    %% Create a data structure to hold our results
+
+    data_table = table(mean_resultant_vector_length, ...
+                      mean_angle, ...
+                      p_value, ...
+                      z_statistic, ...
+                      filenames, ...
+                      filecodes);
+
+    save(save_file_name, 'data_table');
 
 end
-
-%% Create a data structure to hold our results
-
-data_table = table(mean_resultant_vector_length, ...
-                  mean_angle, ...
-                  p_value, ...
-                  z_statistic, ...
-                  filenames, ...
-                  filecodes);
-
-save('/projectnb/hasselmogrp/hlazaro/MATLAB/data-head-direction-light-modulation.mat', 'data_table');
