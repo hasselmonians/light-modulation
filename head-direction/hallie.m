@@ -21,27 +21,50 @@ load('/projectnb/hasselmogrp/ahoyland/data/holger/light-dark/data-Holger-LightDa
 filenames = data_table.filenames;
 filecodes = data_table.filecodes;
 
+%% Instantiate outputs
+
+mean_resultant_vector_length    = zeros(length(filenames), 1);
+mean_angle                      = zeros(length(filenames), 1);
+p_value                         = zeros(length(filenames), 1);
+z_statistic                     = zeros(length(filenames), 1);
+
 %% Load one of the CMBHOME files
 
 % loads a CMBHOME.Session object named "root"
 % loads a numerical matrix called "lightON"
-load(filenames{1})
 
-% set the cell number
-root.cel = filecodes(1, :);
+for ii = 1:length(filenames)
 
-% set the epochs where the light is on
-root.epoch = lightON;
+    load(filenames{ii})
 
-% directional tuning
-[headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
-angleRad = pi / 180 * angleDeg;
+    % set the cell number
+    root.cel = filecodes(ii, :);
 
-% mean resultant vector length
-headDir.meanResultantVectorLength = circ_r(angleRad,headdirTuning);
+    % set the epochs where the light is on
+    root.epoch = lightON;
 
-% computing the mean angle
-headDir.meanAngle = circ_mean(angleRad,headdirTuning);
+    % directional tuning
+    [headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
 
-% Rayleigh test
-[headDir.pValueRayleighTest, headDir.zStatRayleighTest]=circ_rtest(angleRad,headdirTuning);
+    % convert from degrees to radians
+    angleRad = pi / 180 * angleDeg;
+
+    % mean resultant vector length
+    mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
+
+    % computing the mean angle
+    mean_angle(ii) = circ_mean(angleRad, headdirTuning);
+
+    % Rayleigh test
+    [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
+
+end
+
+%% Create a data structure to hold our results
+
+data_table = table(mean_resultant_vector_length, ...
+                  mean_angle, ...
+                  p_value, ...
+                  z_statistic, ...
+                  filenames, ...
+                  filecodes);
