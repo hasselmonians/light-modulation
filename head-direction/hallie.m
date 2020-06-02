@@ -33,15 +33,12 @@ root.cel = filecodes(1, :);
 % set the epochs where the light is on
 root.epoch = lightON;
 
-<<<<<<< HEAD
 [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
 angleRad = pi / 180 * angleDeg;
-=======
 % directional tuning
 [headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
 
 % mean resultant vector length
->>>>>>> 3e286c8834dd1162edae166ed989cfc76888c620
 headDir.meanResultantVectorLength = circ_r(angleRad,headdirTuning);
 
 % computing the mean angle
