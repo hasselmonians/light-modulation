@@ -13,10 +13,10 @@
 % end
 % end
 
-function data_table = hallie(epochs, save_file_name, parallel)
+function data_table = computeHeadDirectionStatistics(light, save_file_name, parallel)
 
     %% Arguments:
-    %   epochs: a matrix of epoch start times and end times
+    %   light: if true, computes the light-on condition
     %   save_file_name: full path to where the data table should be saved
     %   if parallel == true, try running the loop in parallel
 
@@ -52,7 +52,11 @@ function data_table = hallie(epochs, save_file_name, parallel)
             root.cel = filecodes(ii, :);
 
             % set the epochs where the light is on
-            root.epoch = epochs;
+            if light
+                root.epoch = lightON;
+            else
+                root.epoch = lightOFF;
+            end
 
             % directional tuning
             [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
@@ -79,7 +83,11 @@ function data_table = hallie(epochs, save_file_name, parallel)
             root.cel = filecodes(ii, :);
 
             % set the epochs where the light is on
-            root.epoch = epochs;
+            if light
+                root.epoch = lightON;
+            else
+                root.epoch = lightOFF;
+            end
 
             % directional tuning
             [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
