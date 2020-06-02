@@ -13,16 +13,11 @@
 % end
 % end
 
-function data_table = computeHeadDirectionStatistics(light, save_file_name, parallel)
+function data_table = computeHeadDirectionStatistics(light, save_file_name)
 
     %% Arguments:
     %   light: if true, computes the light-on condition
     %   save_file_name: full path to where the data table should be saved
-    %   if parallel == true, try running the loop in parallel
-
-    if nargin < 3
-        parallel = false;
-    end
 
     %% Load the filename and filecode data
 
@@ -43,68 +38,35 @@ function data_table = computeHeadDirectionStatistics(light, save_file_name, para
 
     % loads a CMBHOME.Session object named "root"
     % loads a numerical matrix called "lightON"
-    if parallel
-        parfor ii = 1:length(filenames)
+    for ii = 1:length(filenames)
 
-            load(filenames{ii})
+        load(filenames{ii})
 
-            % set the cell number
-            root.cel = filecodes(ii, :);
+        % set the cell number
+        root.cel = filecodes(ii, :);
 
-            % set the epochs where the light is on
-            if light
-                root.epoch = lightON;
-            else
-                root.epoch = lightOFF;
-            end
-
-            % directional tuning
-            [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
-
-            % convert from degrees to radians
-            angleRad = pi / 180 * angleDeg;
-
-            % mean resultant vector length
-            mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
-
-            % computing the mean angle
-            mean_angle(ii) = circ_mean(angleRad, headdirTuning);
-
-            % Rayleigh test
-            [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
-
+        % set the epochs where the light is on
+        if light
+            root.epoch = lightON;
+        else
+            root.epoch = lightOFF;
         end
-    else
-        for ii = 1:length(filenames)
 
-            load(filenames{ii})
+        % directional tuning
+        [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
 
-            % set the cell number
-            root.cel = filecodes(ii, :);
+        % convert from degrees to radians
+        angleRad = pi / 180 * angleDeg;
 
-            % set the epochs where the light is on
-            if light
-                root.epoch = lightON;
-            else
-                root.epoch = lightOFF;
-            end
+        % mean resultant vector length
+        mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
 
-            % directional tuning
-            [headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
+        % computing the mean angle
+        mean_angle(ii) = circ_mean(angleRad, headdirTuning);
 
-            % convert from degrees to radians
-            angleRad = pi / 180 * angleDeg;
+        % Rayleigh test
+        [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
 
-            % mean resultant vector length
-            mean_resultant_vector_length(ii) = circ_r(angleRad, headdirTuning);
-
-            % computing the mean angle
-            mean_angle(ii) = circ_mean(angleRad, headdirTuning);
-
-            % Rayleigh test
-            [p_value(ii), z_statistic(ii)] = circ_rtest(angleRad, headdirTuning);
-
-        end
     end
 
     %% Create a data structure to hold our results
