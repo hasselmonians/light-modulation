@@ -28,12 +28,13 @@ filecodes = data_table.filecodes;
 load(filenames{1})
 
 % set the cell number
-root.cel = filecode(1, :);
+root.cel = filecodes(1, :);
 
 % set the epochs where the light is on
 root.epoch = lightON;
 
-[headdirTuning, angleDeg] = root.DirectionalTuningFcn(cel, 'binsize', 6, 'Continuize', 1);
+[headdirTuning, angleDeg] = root.DirectionalTuningFcn(root.cel, 'binsize', 6, 'Continuize', 1);
+angleRad = pi / 180 * angleDeg;
 headDir.meanResultantVectorLength = circ_r(angleRad,headdirTuning);
 headDir.meanAngle = circ_mean(angleRad,headdirTuning);
 [headDir.pValueRayleighTest, headDir.zStatRayleighTest]=circ_rtest(angleRad,headdirTuning);
